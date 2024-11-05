@@ -1,7 +1,25 @@
-/** VOS $VARIABLES Sass ici avant l'importation**/
+/*** VARIABLES SCSS ***/
+$primary: #58837A; 
+$secondary: #364749;
+$body-bg: #F5F5F5;
+$info: #F5F5F5;
+$light: #A4C3C5;
+$dark: #252525;
 
+/* POLICE DES TITRES */
+$headings-font-family: "Fjalla One";
+/* POLICE DU TEXTE */
+$font-family-base: "Inter";
 
-/*** Importation de Boostrap **/
+/*** IMPORTATION BOOTSTRAP + POLICES***/
 @import "partials/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-/*** Début des styles personnalisés ***/
+/*** STYLES PERSONNALISÉS ***/
+#hero {
+    p {
+      line-height: 3rem;
+      font-size: 3rem;
+      font-weight: bolder;
+    }
+}
