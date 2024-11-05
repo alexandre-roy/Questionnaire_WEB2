@@ -21,4 +21,4 @@
 ## Titres : Fjalla One (https://fonts.google.com/specimen/Fjalla+One)
 ## Texte courant : Inter ((https://fonts.google.com/specimen/Inter))
 # COULEURS
-* 364749, 58837A, A4C3C5, F5F5F5, 
+* 364749, 58837A, A4C3C5, F5F5F5, #252525
