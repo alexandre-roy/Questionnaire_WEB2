@@ -22,7 +22,8 @@
           <button
             type="button"
             class="btn btn-primary text-info m-4 py-0"
-            disabled
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvas"
           >
             CONSULTER MES RÉPONSES
           </button>
@@ -208,11 +209,73 @@
         </div>
       </section>
 
-      <section id="creation-questionnaire"></section>
+      <section id="modules-theoriques" class="container my-3">
+        <h2 class="container mt-5">Modules théoriques</h2>
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-3">
+            <div class="card">
+              <img
+                src="images/Logo-05B-dev-web-client.png"
+                class="card-img-top"
+                alt="module"
+              />
+              <div class="card-body card-size">
+                <h5 class="card-title text-center">TITRE DU MODULE</h5>
+                <p class="card-text text-center">
+                  Description courte du module
+                </p>
+              </div>
+            </div>          
+          </div>
+          
+        </div>
+      </section>
 
-      <section id="modules-theoriques"></section>
+      <section
+        id="creation-questionnaire"
+        class="container my-3 d-flex justify-content-center"
+      >
+        <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
+          <form method="get">
+            <h2 class="text-center fs-2">Création du questionnaire</h2>
+            <div>
+              <label for="nbquestions" class="mb-2"
+                ><strong>Nombre de questions:</strong></label
+              >
+              <input
+                class="form-control w-25 mb-4"
+                type="number"
+                name="nbquestions"
+                id="nbquestions"
+              />
+            </div>
+            <div class="mb-4">
+              <p>
+                Après avoir utilisé les filtres, cliquer sur le bouton pour
+                créer le test.
+              </p>
+              <p>
+                Si vous ne filtrez pas, le test sera basé sur tout les modules.
+              </p>
+            </div>
 
-      <section id="questionnaire"></section>
+            <div class="d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-secondary text-info py-1 w-50"
+              >
+                GÉNÉRER LE QUESTIONNAIRE
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="questionnaire" class="container d-flex justify-content-end">
+        <button type="button" class="btn btn-primary text-info my-4">
+          TERMINER LE TEST
+        </button>
+      </section>
     </main>
 
     <footer class="bg-light">
@@ -226,6 +289,19 @@
         </p>
       </div>
     </footer>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Mes réponses</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">...</div>
+    </div>
 
     <!--LIEN VERS UN FICHIER SCRIPT UTILITAIRES -->
     <script src="js/fonctions-utilitaires.js"></script>
