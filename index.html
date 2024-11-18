@@ -21,7 +21,7 @@
           </a>
           <button
             type="button"
-            class="btn btn-primary text-info m-4 py-0"
+            class="btn btn-dark text-info m-4 py-0"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvas"
           >
@@ -34,22 +34,20 @@
     <main class="bg-body">
       <section id="hero" class="position-relative">
         <p
-          class="position-absolute bottom-0 bg-body bg-opacity-75 p-3 m-5 rounded border border-4 border-dark"
+          class="position-absolute bottom-0 bg-body bg-opacity-75 p-2 m-5 rounded border border-4 border-dark fs-1"
         >
-          05B | DÉVELOPPEMENT WEB COTÉ CLIENT
+          <strong>05B | DÉVELOPPEMENT WEB COTÉ CLIENT</strong>
         </p>
         <img src="images/hero.jpg" alt="hero" width="100%" />
       </section>
 
-      <h1 class="container mt-4"><strong>Questionnaire formatif</strong></h1>
-
+      <h1 class="container my-4"><strong>Questionnaire formatif</strong></h1>
       <section id="filtres" class="container my-3">
-        <h2 class="container my-4">Filtres</h2>
         <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button
-                class="accordion-button"
+                class="accordion-button fs-2"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseOne"
@@ -68,14 +66,14 @@
                 <form method="get">
                   <div class="row gap-3">
                     <div class="mb-3 col pe-4">
-                      <label for="description" class="fs-4 my-2"
+                      <label for="txtdescription" class="fs-4 my-2"
                         ><strong>Description</strong></label
                       >
                       <input
                         class="form-control"
                         type="text"
-                        name="description"
-                        id="description"
+                        name="txtdescription"
+                        id="txtdescription"
                         placeholder="Veuillez saisir un mot-clé"
                       />
                     </div>
@@ -89,10 +87,10 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="html"
-                            id="html"
+                            value="chkhtml"
+                            id="chkhtml"
                           />
-                          <label class="form-check-label" for="html">
+                          <label class="form-check-label" for="chkhtml">
                             HTML
                           </label>
                         </div>
@@ -100,10 +98,10 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="css"
-                            id="css"
+                            value="chkcss"
+                            id="chkcss"
                           />
-                          <label class="form-check-label" for="css">
+                          <label class="form-check-label" for="chkcss">
                             CSS
                           </label>
                         </div>
@@ -111,10 +109,10 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="bootstrap"
-                            id="bootstrap"
+                            value="chkbootstrap"
+                            id="chkbootstrap"
                           />
-                          <label class="form-check-label" for="bootstrap">
+                          <label class="form-check-label" for="chkbootstrap">
                             Bootstrap
                           </label>
                         </div>
@@ -124,10 +122,10 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="javascript"
-                            id="javascript"
+                            value="chkjavascript"
+                            id="chkjavascript"
                           />
-                          <label class="form-check-label" for="javascript">
+                          <label class="form-check-label" for="chkjavascript">
                             Javascript
                           </label>
                         </div>
@@ -135,10 +133,10 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="formulaires"
-                            id="formulaires"
+                            value="chkformulaires"
+                            id="chkformulaires"
                           />
-                          <label class="form-check-label" for="formulaires">
+                          <label class="form-check-label" for="chkformulaires">
                             Formulaires
                           </label>
                         </div>
@@ -146,10 +144,13 @@
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            value="accessibilite"
-                            id="accessibilite"
+                            value="chkaccessibilite"
+                            id="chkaccessibilite"
                           />
-                          <label class="form-check-label" for="accessibilite">
+                          <label
+                            class="form-check-label"
+                            for="chkaccessibilite"
+                          >
                             Accessibilité Web
                           </label>
                         </div>
@@ -210,7 +211,6 @@
       </section>
 
       <section id="modules-theoriques" class="container my-3">
-        <h2 class="container mt-5">Modules théoriques</h2>
         <div class="row">
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-3">
             <div class="card">
@@ -225,9 +225,8 @@
                   Description courte du module
                 </p>
               </div>
-            </div>          
+            </div>
           </div>
-          
         </div>
       </section>
 
@@ -271,10 +270,31 @@
         </div>
       </section>
 
-      <section id="questionnaire" class="container d-flex justify-content-end">
-        <button type="button" class="btn btn-primary text-info my-4">
-          TERMINER LE TEST
-        </button>
+      <section id="questionnaire" class="container">
+        <div class="d-flex justify-content-center">
+          <div class="card px-4 py-3 bg-light bg-opacity-25 w-75">
+            <form method="get">
+              <h2 class="text-center fs-2">QUESTION (TITRE DU MODULE)</h2>
+              <div class="my-4">
+                <p>CHOIX DE RÉPONSES</p>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary text-info py-1 w-25"
+                >
+                  QUESTION SUIVANTE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-dark text-info my-4">
+            TERMINER LE TEST
+          </button>
+        </div>
       </section>
     </main>
 
@@ -292,15 +312,37 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Mes réponses</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <h3 class="offcanvas-title">Mes réponses</h3>
       </div>
-      <div class="offcanvas-body">...</div>
+
+      <div class="offcanvas-body">
+        <div>
+          <p>RÉPONSES</p>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="border-top border-2 border-dark my-4 w-75"></div>
+        </div>
+        <form method="get">
+          <h4>Envoyer mes résultats</h4>
+          <div class="my-2">
+            <label for="txtnom"><strong>Nom</strong></label>
+            <input class="form-control" type="text" name="txtnom" id="txtnom" />
+          </div>
+
+          <div class="my-2">
+            <label for="txtcourriel"><strong>Courriel</strong></label>
+            <input
+              class="form-control"
+              type="text"
+              name="txtcourriel"
+              id="txtcourriel"
+            />
+          </div>
+          <button type="button" class="btn btn-primary text-info py-1 w-100">
+            ENVOYER
+          </button>
+        </form>
+      </div>
     </div>
 
     <!--LIEN VERS UN FICHIER SCRIPT UTILITAIRES -->
