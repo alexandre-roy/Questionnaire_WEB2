@@ -56,7 +56,7 @@ function validerFormulaireFiltres() {
 
  function initialisation() { 
     creerCards(0, "images/Logo-05B-dev-web-client.png", "MODULE X", "DESCRIPTION COURTE");
-    validerFormulaireFiltres(); 
+    validerFormulaireFiltres();
 }
 
 window.addEventListener("load", initialisation, false);
