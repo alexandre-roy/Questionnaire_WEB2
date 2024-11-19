@@ -13,5 +13,4 @@
 
 }
 
-
 addEventListener("load", initialisation, false);
