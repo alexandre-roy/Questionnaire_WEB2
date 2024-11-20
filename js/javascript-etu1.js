@@ -5,6 +5,7 @@
 
 /*global DATA_QUIZ*/
 
+
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
   let rowDiv = document.getElementById("modules-theoriques");
   rowDiv.className = "row";
@@ -56,14 +57,13 @@ function validerFormulaireFiltres() {
 }
 
 function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
-  let noModule = document.getElementById("filtresSelect").value;
   let cards = document.getElementById("modules-theoriques");
   let msgErreur = document.getElementById("msg-filtres");
 
   if (pEstFiltreApplique) {
     let noModule = document.getElementById("filtresSelect").value;
-    cards.textContent = "";
     if (validerFormulaireFiltres()) {
+      cards.textContent = "";
       pEstFiltreApplique = true;
       creerCards(
         noModule,
@@ -80,25 +80,44 @@ function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
       creerCards(
         pDonnees[i],
         pDonnees[i].imgModule,
-        `MODULE 0${String(noModule)} | ` + pDonnees[i].titre,
+        `MODULE 0${String(i)} | ` + pDonnees[i].titre,
         pDonnees[i].description
       );
     }
   }
 }
 
+let noModuleSelectionne;
+
 function afficherModules() {
-    let btnFiltrer = document.getElementById("btnfiltrer");
-    let btnAfficherTout = document.getElementById("btnaffichertout");
-  
-    btnFiltrer.addEventListener("click", function () {
-      afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
-    });
-  
-    btnAfficherTout.addEventListener("click", function () {
-      afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
-    });
-  }
+  let btnFiltrer = document.getElementById("btnfiltrer");
+  let btnAfficherTout = document.getElementById("btnaffichertout");
+
+  afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
+
+  btnFiltrer.addEventListener("click", function () {
+    afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
+  });
+
+  btnAfficherTout.addEventListener("click", function () {
+    afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
+  });
+}
+
+function creerQuestionnaire(e){
+    
+    e.preventDefault();
+
+    let nbQuestions = e.target.nbquestions.value;
+    let noModule = document.getElementById("filtresSelect").value;
+
+    console.log(nbQuestions);
+
+    if (afficherModules) {
+
+    console.log(noModule);
+    }
+}
 
 /*************
     Cette fonction est rattachée à l'événement "Load". 
@@ -107,7 +126,10 @@ function afficherModules() {
 **************/
 
 function initialisation() {
-  afficherModules();
+  let creer = document.getElementById("formCreer");
+  creer.addEventListener("submit", creerQuestionnaire);
+
+  afficherModules();  
 }
 
-window.addEventListener("load", initialisation, false);
+window.addEventListener("DOMContentLoaded", initialisation);
