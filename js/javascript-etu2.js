@@ -54,6 +54,128 @@ function creerPoppover(pIdContenuPopover, pIdBoutonAssocie, pEntete){
         html : true,
         content: contenuPoppover
     };
-        new bootstrap.Popover(popover, boutonPoppover);
+    new bootstrap.Popover(boutonPoppover, popover);
 }
 
+function calculerScore(pNbPoint, PTotalPoint){
+    return Math.round((pNbPoint / PTotalPoint) * 100);
+}
+
+function creerHTMLMesReponses(){
+    let titre = document.createElement("h2");
+    titre.textContent = "Mes réponses";
+
+    questions.forEach((question, index) => {
+        let reponse = question.reponsesUtilisateur;
+        let reponses = question.reponses;
+        let pointage = question.pointageQuestion;
+        let titre = question.titre;
+        let retroactionPositive = question.retroactionPositive;
+        let retroactionNegative = question.retroactionNegative;
+        let moduleNumero = question.moduleNumero;
+        let moduleTitre = question.moduleTitre;
+
+        let div = document.createElement("div");
+
+        let divHeader = document.createElement("div");
+        divHeader.className = "toast-header";
+        
+        let entete = document.createElement("h2");
+        
+        let strong = document.createElement("strong");
+        strong.textContent = `Question ${index + 1} - Module ${moduleNumero} (${moduleTitre})`;
+        
+        let pQuestion = document.createElement("p");
+        pQuestion.textContent = titre;
+
+        let pReponse = document.createElement("p");
+        let pSReponnse = document.createElement("strong");
+        pSReponse.textContent = `Votre réponse: ${reponse}`;
+        
+        div.appendChild(divHeader);
+        divHeader.appendChild(entete);
+        entete.appendChild(strong);
+        divHeader.appendChild(pQuestion);
+        divHeader.appendChild(pReponse);
+        pReponse.appendChild(pSReponse);
+
+        if(reponses.includes(reponse)){
+
+            let divBody = document.createElement("div");
+            let pPointage = document.createElement("p");
+            pPointage.textContent = ` 1 /${pointage}`;
+            pPointage.className = "text-success";
+            let pBoiteTexte = document.createElement("p");
+            pBoiteTexte.textContent = retroactionPositive;
+            pBoiteTexte.className = "text-success";
+            pNbPoint += pointage;
+            PTotalPoint += 1;
+            
+        } else {
+            let divBody = document.createElement("div");
+            let pPointage = document.createElement("p");
+            pPointage.textContent = ` 0 /${pointage}`;
+            pPointage.className = "text-warning";
+            let pBoiteTexte = document.createElement("p");
+            pBoiteTexte.textContent = retroactionNegative;
+            pBoiteTexte.className = "text-warning";
+            PTotalPoint += 1;
+        }
+
+        div.appendChild(divBody);
+        divBody.appendChild(pPointage);
+        divBody.appendChild(pBoiteTexte);
+
+        let divFooter = document.createElement("div");
+        let tScore = document.createElement("h2");
+        let tScoreStrong = document.createElement("strong");
+        tScoreStrong.textContent = "Votre score";
+        let pScore = document.createElement("p");
+        pScore.textContent = `Voici le total de vos points :`;
+        let pTScore = document.createElement("h3");
+        let PTSScore = document.createElement("strong");
+        PTSScore.textContent = `Bonne(s) réponse(s) :`;
+        let Score = document.createElement("p");
+        Score.textContent = `${pNbPoint} / ${PTotalPoint}`;
+        let tPourcentage = document.createElement("h3");
+        tSPourcentage = document.createElement("strong");
+        tSPourcentage.textContent = `Score :`;
+        let pPourcentage = document.createElement("p");
+        pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
+        if (pNbPoint / PTotalPoint >= 0.5){
+            Score.className = "text-success";
+            pPourcentage.className = "bg-success";
+        }
+        else
+        {
+            Score.className = "text-warning";
+            pPourcentage.className = "bg-warning";
+        }
+            
+        div.appendChild(divFooter);
+        divFooter.appendChild(tScore);
+        tScore.appendChild(tScoreStrong);
+        divFooter.appendChild(pScore);
+        divFooter.appendChild(pTScore);
+        pTScore.appendChild(PTSScore);
+        divFooter.appendChild(Score);
+        divFooter.appendChild(tPourcentage);
+        tPourcentage.appendChild(tSPourcentage);
+        divFooter.appendChild(pPourcentage);
+
+    });
+}
+
+function remplirOffCanvas(){
+    let offCanvas = document.getElementById("offCanvasContent");
+    let div = document.createElement("div");
+    div.className = "container";
+
+    let titre = document.createElement("h1");
+    titre.textContent = "Résultats du quiz";
+
+    let divMesReponses = creerHTMLMesReponses();
+    div.appendChild(titre);
+    div.appendChild(divMesReponses);
+    offCanvas.appendChild(div);
+}
