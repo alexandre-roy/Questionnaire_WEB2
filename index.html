@@ -63,7 +63,7 @@
               data-bs-parent="#accordionExample"
             >
               <div class="accordion-body">
-                <form method="get">
+                <form method="post" novalidate action="">
                   <div class="row gap-3">
                     <div class="mb-3 col pe-4">
                       <label for="txtdescription" class="fs-4 my-2"
@@ -163,8 +163,8 @@
                       <label for="module" class="fs-4 my-2"
                         ><strong>Choix du module</strong></label
                       >
-                      <select class="form-select" id="filtres">
-                        <option selected disabled>
+                      <select class="form-select" id="filtresSelect">
+                        <option value="-1" selected >
                           Veuillez sélectionner un module
                         </option>
                         <option value="0">MODULE 00 - Révision</option>
@@ -173,25 +173,23 @@
                           MODULE 02 - Normes Accessibilité et design UX
                         </option>
                         <option value="3">
-                          MODULE 03 - Git en équipe et gestion de conflits
+                          MODULE 03 - Git en équipe
                         </option>
-                        <option value="4">MODULE 04 - Git en équipe</option>
+                        <option value="4">MODULE 04 - Bibliothèque de développement d'infterfaces adptatives</option>
                         <option value="5">
-                          MODULE 05 - Utilisation de Bootstrap (intro, styles,
-                          icônes, composants et formulaires)
-                        </option>
-                        <option value="6">
-                          MODULE 06 - Programmation JavaScript
-                        </option>
+                          MODULE 05 - Programmation JavaScript
+                        </option>           
+                                    
                       </select>
+                      <div id="msg-filtres" class="alert alert-secondary px-2 py-1 mt-3 d-none"></div> 
                     </div>
-
+                    
                     <div class="col">
                       <div class="my-5">
                         <button
                           type="button"
                           class="btn btn-primary text-info py-1 ms-5 me-3"
-                          id="btnafficher"
+                          id="btnaffichertout"
                         >
                           TOUT AFFICHER
                         </button>
@@ -340,6 +338,7 @@
 
     <script src="js/javascript-etu1.js"></script>
     <script src="js/javascript-etu2.js"></script>
+    <script src="js/data-quiz.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

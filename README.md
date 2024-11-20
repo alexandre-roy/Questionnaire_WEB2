@@ -11,10 +11,14 @@
 ## Étudiant 1 - Alexandre Roy
 * Iniatilation du projet
 * header, footer, HERO
-* Section Filtres
-* Section Modules théoriques
-* Section Création du questionnaire 
-* Section Questionnaire
+* Section Filtres en html
+* Section Modules théoriques en html
+* Section Création du questionnaire  en html
+* Section Questionnaire en html
+* Fonction creerCards
+* Fonction afficherModules
+* Fonction afficherModulesSelonFiltre
+* Fonction validerFormulaireFiltres
 * ...
 ## Étudiant 2 - Emmanuel Xudous
 * Tâche ou fonction 1

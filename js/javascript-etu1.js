@@ -3,50 +3,102 @@
  */
 "use strict";
 
-function creerCards(pNoModule, pImage, pTitre, pDescription) {   
-    const rowDiv = document.getElementById("modules-theoriques");
-    rowDiv.className = "row";
-    
-    const colDiv = document.createElement("div");
-    colDiv.className = "col-lg-3 col-md-4 col-sm-6 col-xs-12 p-3";
+/*global DATA_QUIZ*/
 
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "card";
+function creerCards(pNoModule, pImage, pTitre, pDescription) {
+  let rowDiv = document.getElementById("modules-theoriques");
+  rowDiv.className = "row";
 
-    const img = document.createElement("img");
-    img.src = pImage;
-    img.alt = `Module ${pNoModule}`;
-    img.className = "card-img-top";
+  let colDiv = document.createElement("div");
+  colDiv.className = "col-lg-4 col-sm-6 p-3";
 
-    const cardBody = document.createElement("div");
-    cardBody.className = "card-body card-size";
+  let cardDiv = document.createElement("div");
+  cardDiv.className = "card";
 
-    const cardTitle = document.createElement("h5");
-    cardTitle.className = "card-title text-center";
-    cardTitle.textContent = pTitre;
+  let img = document.createElement("img");
+  img.src = `images/modules/${pImage}`;
+  img.alt = `Module ${pNoModule}`;
+  img.className = "card-img-top card-title";
 
-    const cardText = document.createElement("p");
-    cardText.className = "card-text text-center";
-    cardText.textContent = pDescription;
+  let cardBody = document.createElement("div");
+  cardBody.className =
+    "card-body card-size d-flex justify-content-center flex-column";
 
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(cardText);
-    cardDiv.appendChild(img);
-    cardDiv.appendChild(cardBody);
-    colDiv.appendChild(cardDiv);
-    rowDiv.appendChild(colDiv);
+  let cardTitle = document.createElement("h5");
+  cardTitle.className = "card-title text-center";
+  cardTitle.textContent = pTitre;
+
+  let cardText = document.createElement("p");
+  cardText.className = "card-text text-center";
+  cardText.textContent = pDescription;
+
+  rowDiv.appendChild(colDiv);
+  colDiv.appendChild(cardDiv);
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(cardBody);
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardText);
 }
 
 function validerFormulaireFiltres() {
-    let btnFiltrer = document.getElementById("btnfiltrer");
+  let msgErreur = document.getElementById("msg-filtres");
+  let noModule = document.getElementById("filtresSelect").value;
 
-    btnFiltrer.addEventListener("click", function() {
-
-        let filtre = document.getElementById("filtres").value;
-
-        console.log(filtre);
-    });
+  if (noModule == -1) {
+    msgErreur.textContent =
+      "Erreur - Vous devez sélectionner une des options valides.";
+    msgErreur.classList.remove("d-none");
+    return false;
+  } else {
+    msgErreur.classList.add("d-none");
+    return true;
+  }
 }
+
+function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
+  let noModule = document.getElementById("filtresSelect").value;
+  let cards = document.getElementById("modules-theoriques");
+  let msgErreur = document.getElementById("msg-filtres");
+
+  if (pEstFiltreApplique) {
+    let noModule = document.getElementById("filtresSelect").value;
+    cards.textContent = "";
+    if (validerFormulaireFiltres()) {
+      pEstFiltreApplique = true;
+      creerCards(
+        noModule,
+        pDonnees[noModule].imgModule,
+        `MODULE 0${String(noModule)} | ` + pDonnees[noModule].titre,
+        pDonnees[noModule].description
+      );
+    }
+  } else {
+    msgErreur.classList.add("d-none");
+    cards.textContent = "";
+
+    for (let i = 0; i < pDonnees.length; i++) {
+      creerCards(
+        pDonnees[i],
+        pDonnees[i].imgModule,
+        `MODULE 0${String(noModule)} | ` + pDonnees[i].titre,
+        pDonnees[i].description
+      );
+    }
+  }
+}
+
+function afficherModules() {
+    let btnFiltrer = document.getElementById("btnfiltrer");
+    let btnAfficherTout = document.getElementById("btnaffichertout");
+  
+    btnFiltrer.addEventListener("click", function () {
+      afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
+    });
+  
+    btnAfficherTout.addEventListener("click", function () {
+      afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
+    });
+  }
 
 /*************
     Cette fonction est rattachée à l'événement "Load". 
@@ -54,9 +106,8 @@ function validerFormulaireFiltres() {
     la page sera entièrement chargée.
 **************/
 
- function initialisation() { 
-    creerCards(0, "images/Logo-05B-dev-web-client.png", "MODULE X", "DESCRIPTION COURTE");
-    validerFormulaireFiltres(); 
+function initialisation() {
+  afficherModules();
 }
 
 window.addEventListener("load", initialisation, false);
