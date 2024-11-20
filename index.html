@@ -196,7 +196,6 @@
                         <button
                           type="button"
                           class="btn btn-secondary text-info py-1"
-                          id="btnfiltrer"
                         >
                           FILTRER
                         </button>
@@ -210,8 +209,24 @@
         </div>
       </section>
 
-      <section class="container my-3">
-        <div id="modules-theoriques"></div>
+      <section id="modules-theoriques" class="container my-3">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-3">
+            <div class="card">
+              <img
+                src="images/Logo-05B-dev-web-client.png"
+                class="card-img-top"
+                alt="module"
+              />
+              <div class="card-body card-size">
+                <h5 class="card-title text-center">TITRE DU MODULE</h5>
+                <p class="card-text text-center">
+                  Description courte du module
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section
@@ -265,17 +280,19 @@
               <div class="d-flex justify-content-end">
                 <button
                   type="button"
-                  id ="pIdBoutonAssocie"
+                  id="pIdBoutonAssocie"
+                  data-bs-toggle="popover"
+                  data-bs-trigger="focus"
+                  data-bs-placement="top"
                   class="btn btn-primary text-info py-1 w-25"
                 >
                   QUESTION SUIVANTE
                 </button>
+                <h3 class="d-none" id="pEntete">Fin du questionnaire</h3>
+                <div id="contenu-popover" class="d-none">
+                  <p>Pour consulter vos reponses, cliquer sur le bouton mes reponses dans l'entete de cette page</p>
               </div>
-              <div id="contenuPopover" style="display:none;">
-                pour consulter vos reponses, cliquer sur le bouton ; Mes reponses ; dans l'entete de cette page
               </div>
-
-            </div>
             </form>
           </div>
         </div>
@@ -335,6 +352,11 @@
       </div>
     </div>
 
+    <!--LIEN VERS UN FICHIER SCRIPT UTILITAIRES -->
+    <script src="js/fonctions-utilitaires.js"></script>
+
+    <!--LIEN VERS NOTRE FICHIER SCRIPT PRINCIPAL-->
+    <script src="js/javascript.js"></script>
 
     <script src="js/javascript-etu1.js"></script>
     <script src="js/javascript-etu2.js"></script>

@@ -2,6 +2,7 @@
  *  Fichier principal javascript
  */
 "use strict";
+/*global bootstrap*/
 
 const questions = [
     {
@@ -43,24 +44,16 @@ const questions = [
 ];
 
 function creerPoppover(pIdContenuPopover, pIdBoutonAssocie, pEntete){
-    const contenuPoppover = document.getElementById(pIdContenuPopover);
+    const contenuPoppover = document.getElementById(pIdContenuPopover).innerHTML;
     const boutonPoppover = document.getElementById(pIdBoutonAssocie);
-    const popoverTitle = document.createElement("h4");
-    const popoverContenu = document.createElement("p");
-    const popoverContainer = document.createElement("div");
+    const titrePoppover = document.getElementById(pEntete);
 
-    popoverContenu.textContent = contenuPoppover.textContent;
-    popoverTitle.textContent = pEntete;
-
-    popoverContainer.appendChild(popoverTitle);
-    popoverContainer.appendChild(popoverContenu);
-
-    const poppover = new bootstrap.Popover(boutonPoppover, {
-        content: popoverContainer,
-        title: pEntete,
-        trigger: "click",
-    });
-    boutonPoppover.addEventListener("click", function () {
-        poppover.toggle();
-    });
+    let popover = {
+        container: "body",
+        title: titrePoppover,
+        html : true,
+        content: contenuPoppover
+    };
+        new bootstrap.Popover(popover, boutonPoppover);
 }
+
