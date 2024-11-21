@@ -148,7 +148,12 @@ const DATA_QUIZ = {
       retroactionNegative:
         "Ce n'est pas la bonne réponse. Veuillez revoir les sélecteurs CSS pour les éléments imbriqués.",
       categories: ["CSS", "Sélecteurs"],
-      choixReponses: ".article p, #article p, :nth-child(odd), p.article",
+      choixReponses: [
+        ".article p",
+        "#article p",
+        ":nth-child(odd)",
+        "p.article",
+      ],
       reponses: [0], // L'index de la bonne réponse (dans ce cas, 0 pour ".article p").
     },
     {

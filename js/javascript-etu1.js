@@ -5,6 +5,10 @@
 
 /*global DATA_QUIZ*/
 
+let questionsPourQuestionnaire = [];
+let nbQuestions;
+let noModuleSelectionne = 6;
+
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
   let rowDiv = document.getElementById("modules-theoriques");
   rowDiv.className = "row";
@@ -86,8 +90,6 @@ function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
   }
 }
 
-let noModuleSelectionne = 6;
-
 function afficherModules() {
   let btnFiltrer = document.getElementById("btnfiltrer");
   let btnAfficherTout = document.getElementById("btnaffichertout");
@@ -105,12 +107,10 @@ function afficherModules() {
   });
 }
 
-let questionsPourQuestionnaire = [];
-
 function creerQuestionnaire(e) {
   e.preventDefault();
 
-  let nbQuestions = parseInt(e.target.nbquestions.value);
+  nbQuestions = parseInt(e.target.nbquestions.value);
 
   questionsPourQuestionnaire = [];
 
@@ -134,46 +134,97 @@ function creerQuestionnaire(e) {
     questionsPourQuestionnaire.push(selectedQuestion);
   }
 
+  for (let i = 0; i < questionsPourQuestionnaire.length; i++) {
+    console.log(
+      questionsPourQuestionnaire[i].titre +
+        " | " +
+        questionsPourQuestionnaire[i].modulesId
+    );
+  }
+
+  afficherQuestions(questionsPourQuestionnaire);
+}
+
+function afficherQuestions() {
+  let questionSuivanteBtn = document.getElementById("pIdBoutonAssocie");
+  let questionnaire = document.getElementById("questionnaire");
+
+  questionnaire.classList.remove("d-none");
+
+  afficherQuestionSuivante(0);
+
+  let index = 1;
+
+  questionSuivanteBtn.addEventListener("click", function () {
+    if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
+      terminerQuestionnaire();
+    } else {
+      afficherQuestionSuivante(index);
+      index++;
+
+      if (index == nbQuestions) {
+        questionSuivanteBtn.textContent = "TERMINER LE TEST";
+      }
+    }
+  });
+}
+
+function terminerQuestionnaire() {
+  let btnMesReponses = document.getElementById("btnmesreponses");
+  btnMesReponses.disabled = false;
+}
+
+function afficherQuestionSuivante(pNumeroQuestion) {
   let titreQuestion = document.getElementById("titrequestion");
   let choixReponses = document.getElementById("choixreponses");
+  let noQuestion = document.getElementById("noquestion");
 
   if (questionsPourQuestionnaire.length > 0) {
+    noQuestion.textContent = `Question ${pNumeroQuestion + 1}
+       | MODULE 0${questionsPourQuestionnaire[pNumeroQuestion].modulesId}`;
+
     titreQuestion.textContent =
-      questionsPourQuestionnaire[0].titre +
-      ` | MODULE 0${questionsPourQuestionnaire[0].modulesId}`;
+      questionsPourQuestionnaire[pNumeroQuestion].titre;
 
     choixReponses.textContent = "";
 
-    if (questionsPourQuestionnaire[0].typeQuestion == "radio") {
-      for (
-        let i = 0;
-        i < questionsPourQuestionnaire[0].choixReponses.length;
-        i++
-      ) {
-        let div = document.createElement("div");
-        div.className = "form-check my-2";
+    for (
+      let i = 0;
+      i < questionsPourQuestionnaire[pNumeroQuestion].choixReponses.length;
+      i++
+    ) {
+      let div = document.createElement("div");
+      div.className = "form-check my-2";
 
-        let input = document.createElement("input");
+      let input = document.createElement("input");
+      if (questionsPourQuestionnaire[pNumeroQuestion].typeQuestion == "radio") {
         input.type = "radio";
-        input.className = "form-check-input";
-        input.name = "reponse";
-        input.id = `reponse${i}`;
-        input.value = questionsPourQuestionnaire[0].choixReponses[i].id;
+      } else {
+        input.type = "checkbox";
+      }
+      input.className = "form-check-input";
+      input.name = "reponse";
+      input.id = `reponse${i}`;
+      input.value =
+        questionsPourQuestionnaire[pNumeroQuestion].choixReponses[i].id;
 
-        let label = document.createElement("label");
-        label.className = "form-check-label";
-        label.htmlFor = `reponse${i}`;
-        label.textContent = questionsPourQuestionnaire[0].choixReponses[i];
+      let label = document.createElement("label");
+      label.className = "form-check-label";
+      label.htmlFor = `reponse${i}`;
+      label.textContent =
+        questionsPourQuestionnaire[pNumeroQuestion].choixReponses[i];
 
-        choixReponses.appendChild(div);
-        div.appendChild(input);
-        div.appendChild(label);
-      } 
-    } else {
-      console.log("checkbox");
+      choixReponses.appendChild(div);
+      div.appendChild(input);
+      div.appendChild(label);
     }
   }
 }
+
+function afficherToast(pId, pTitre, pElementHTMLContenu, pTemp){
+  
+}
+
 /*************
     Cette fonction est rattachée à l'événement "Load". 
     C'est la première fonction qui va s'executer lorsque 

@@ -24,6 +24,8 @@
             class="btn btn-dark text-info m-4 py-0"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvas"
+            id="btnmesreponses"
+            disabled
           >
             CONSULTER MES RÉPONSES
           </button>
@@ -218,7 +220,7 @@
 
       <section
         id="creation-questionnaire"
-        class="container my-3 d-flex justify-content-center"
+        class="container my-4 d-flex justify-content-center"
       >
         <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
           <form id="formCreer">
@@ -260,12 +262,13 @@
         </div>
       </section>
 
-      <section id="questionnaire" class="container">
-        <div class="d-flex justify-content-center">
+      <section class="container">
+        <div class="d-flex justify-content-center mb-4 d-none" id="questionnaire">
           <div class="card px-4 py-3 bg-light bg-opacity-25 w-75">
             <form method="get">
-              <h2 class="text-center fs-3" id="titrequestion">QUESTION (TITRE DU MODULE)</h2>
-              <div class="mt-4" id="choixreponses">
+              <h2 class="text-center fs-3" id="noquestion">QUESTION #(TITRE DU MODULE)</h2>
+              <p id="titrequestion" class="fs-5 my-3">NOM DE LA QUESTION</p>
+              <div id="choixreponses">
                 
               </div>
               <div class="d-flex justify-content-end">
@@ -277,7 +280,7 @@
                   data-bs-placement="top"
                   class="btn btn-primary text-info py-1 w-25"
                 >
-                  QUESTION SUIVANTE
+                QUESTION SUIVANTE
                 </button>
                 <h3 class="d-none" id="pEntete">Fin du questionnaire</h3>
                 <div id="contenu-popover" class="d-none">
@@ -286,12 +289,6 @@
               </div>
             </form>
           </div>
-        </div>
-
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-dark text-info my-4">
-            TERMINER LE TEST
-          </button>
         </div>
       </section>
     </main>
