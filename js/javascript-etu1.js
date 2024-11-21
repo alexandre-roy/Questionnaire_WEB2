@@ -5,7 +5,6 @@
 
 /*global DATA_QUIZ*/
 
-
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
   let rowDiv = document.getElementById("modules-theoriques");
   rowDiv.className = "row";
@@ -87,7 +86,7 @@ function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
   }
 }
 
-let noModuleSelectionne;
+let noModuleSelectionne = 6;
 
 function afficherModules() {
   let btnFiltrer = document.getElementById("btnfiltrer");
@@ -96,29 +95,85 @@ function afficherModules() {
   afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
 
   btnFiltrer.addEventListener("click", function () {
+    noModuleSelectionne = document.getElementById("filtresSelect").value;
     afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
   });
 
   btnAfficherTout.addEventListener("click", function () {
+    noModuleSelectionne = 6;
     afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
   });
 }
 
-function creerQuestionnaire(e){
-    
-    e.preventDefault();
+let questionsPourQuestionnaire = [];
 
-    let nbQuestions = e.target.nbquestions.value;
-    let noModule = document.getElementById("filtresSelect").value;
+function creerQuestionnaire(e) {
+  e.preventDefault();
 
-    console.log(nbQuestions);
+  let nbQuestions = parseInt(e.target.nbquestions.value);
 
-    if (afficherModules) {
+  questionsPourQuestionnaire = [];
 
-    console.log(noModule);
+  let questionsPourModule;
+
+  if (noModuleSelectionne == 6) {
+    questionsPourModule = DATA_QUIZ.banque_questions;
+  } else {
+    questionsPourModule = DATA_QUIZ.banque_questions.filter(
+      (question) => question.modulesId == noModuleSelectionne
+    );
+  }
+
+  if (nbQuestions > questionsPourModule.length) {
+    nbQuestions = questionsPourModule.length;
+  }
+
+  while (questionsPourQuestionnaire.length < nbQuestions) {
+    let hasard = Math.floor(Math.random() * questionsPourModule.length);
+    let selectedQuestion = questionsPourModule.splice(hasard, 1)[0];
+    questionsPourQuestionnaire.push(selectedQuestion);
+  }
+
+  let titreQuestion = document.getElementById("titrequestion");
+  let choixReponses = document.getElementById("choixreponses");
+
+  if (questionsPourQuestionnaire.length > 0) {
+    titreQuestion.textContent =
+      questionsPourQuestionnaire[0].titre +
+      ` | MODULE 0${questionsPourQuestionnaire[0].modulesId}`;
+
+    choixReponses.textContent = "";
+
+    if (questionsPourQuestionnaire[0].typeQuestion == "radio") {
+      for (
+        let i = 0;
+        i < questionsPourQuestionnaire[0].choixReponses.length;
+        i++
+      ) {
+        let div = document.createElement("div");
+        div.className = "form-check my-2";
+
+        let input = document.createElement("input");
+        input.type = "radio";
+        input.className = "form-check-input";
+        input.name = "reponse";
+        input.id = `reponse${i}`;
+        input.value = questionsPourQuestionnaire[0].choixReponses[i].id;
+
+        let label = document.createElement("label");
+        label.className = "form-check-label";
+        label.htmlFor = `reponse${i}`;
+        label.textContent = questionsPourQuestionnaire[0].choixReponses[i];
+
+        choixReponses.appendChild(div);
+        div.appendChild(input);
+        div.appendChild(label);
+      } 
+    } else {
+      console.log("checkbox");
     }
+  }
 }
-
 /*************
     Cette fonction est rattachée à l'événement "Load". 
     C'est la première fonction qui va s'executer lorsque 
@@ -129,7 +184,7 @@ function initialisation() {
   let creer = document.getElementById("formCreer");
   creer.addEventListener("submit", creerQuestionnaire);
 
-  afficherModules();  
+  afficherModules();
 }
 
 window.addEventListener("DOMContentLoaded", initialisation);
