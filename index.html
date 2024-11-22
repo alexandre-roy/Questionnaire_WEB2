@@ -224,7 +224,18 @@
         <div class="border-top border-2 border-dark my-4 w-75"></div>
       </div>
       <div id="pElementBodyOffCanva">
-        
+        <form method="get">
+          <h4>Envoyer mes resultats</h4>
+          <div class="my-2" id="divNom">
+              <label for="nom">Nom:</label>
+              <input type="text" name="nom" required class="form-control">
+          </div>
+          <div class="my-2">
+              <label for="courriel">Courriel:</label>
+              <input type="string" name="courriel" required class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary text-info py-1 w-100" id="boutonEnvoyer">Envoyer</button>
+      </form>
       </div>
     </div>
   </div>

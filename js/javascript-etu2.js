@@ -28,6 +28,8 @@ function calculerScore(pNbPoint, PTotalPoint){
 function creerHTMLMesReponses(){
     let titre = document.createElement("h2");
     titre.textContent = "Mes réponses";
+    let textFinal = document.createElement("p");
+    textFinal.className = "d-none";
 
     questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
 
@@ -58,14 +60,13 @@ function creerHTMLMesReponses(){
         divHeader.appendChild(pQuestion);
         divHeader.appendChild(pReponse);
         pReponse.appendChild(pSReponse);
-        
+        let pPointage = document.createElement("p");
+        let pBoiteTexte = document.createElement("p");
         if(reponses.includes(reponse)){
 
             let divBody = document.createElement("div");
-            let pPointage = document.createElement("p");
             pPointage.textContent = "1 / 1";
             pPointage.className = "text-success";
-            let pBoiteTexte = document.createElement("p");
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionPositive;
             pBoiteTexte.className = "text-success";
             pNbPoint += 1;
@@ -76,10 +77,8 @@ function creerHTMLMesReponses(){
             
         } else {
             let divBody = document.createElement("div");
-            let pPointage = document.createElement("p");
             pPointage.textContent = " 0 / 1";
             pPointage.className = "text-warning";
-            let pBoiteTexte = document.createElement("p");
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
             pBoiteTexte.className = "text-warning";
             PTotalPoint += 1;
@@ -113,7 +112,9 @@ function creerHTMLMesReponses(){
             Score.className = "text-warning";
             pPourcentage.className = "bg-warning";
         }
-            
+
+        textFinal.textContent += `${strong.textContent} ${pQuestion.textContent} ${pSReponse.textContent} ${pPointage.textContent} ${pBoiteTexte.textContent} ${tScoreStrong.textContent} ${pScore.textContent} ${PTSScore.textContent} ${Score.textContent} ${tSPourcentage.textContent} ${pPourcentage.textContent}`;
+        
         div.appendChild(divFooter);
         divFooter.appendChild(tScore);
         tScore.appendChild(tScoreStrong);
@@ -126,6 +127,7 @@ function creerHTMLMesReponses(){
         divFooter.appendChild(pPourcentage);
 
     });
+
 }
 
 export function remplirOffCanvas(){
@@ -143,64 +145,56 @@ export function remplirOffCanvas(){
     creerFormulaireEnvoieReponses();
 }
 
-export function creerFormulaireEnvoieReponses(){
-
-    let pElementBodyOffCanva = document.getElementById("pElementBodyOffCanva");
+export function creerFormulaireEnvoieReponses() {
+    let pElementBodyOffCanva = document.getElementById("bodyOffCanvas");
 
     let form = document.createElement("form");
-    form.method = "get";
-
-    let titre = document.createElement("h4");
-    titre.textContent = "Envoyer mes resultats";
-
+    form.id = "formEnvoiReponses";
     let divNom = document.createElement("div");
-    divNom.className = "my-2";
     divNom.id = "divNom";
-
     let nomLabel = document.createElement("label");
-    nomLabel.textContent = "Nom:";
-    nomLabel.for = "nom";
-
+    nomLabel.textContent = "Nom: ";
     let nom = document.createElement("input");
     nom.type = "text";
     nom.name = "nom";
-    nom.required = true;
-    nom.className ="form-control";
-
-    let divCourriel = document.createElement("div");
-    divCourriel.className = "my-2";
-
-    let courrielLabel = document.createElement("label");
-    courrielLabel.textContent = "Courriel:";
-    courrielLabel.for = "courriel";
-
-    let courriel = document.createElement("input");
-    courriel.type = "string";
-    courriel.name = "courriel";
-    courriel.required = true;
-    courriel.className ="form-control";
-
-    let bouton = document.createElement("button");
-    bouton.type = "submit";
-    bouton.className = "btn btn-primary text-info py-1 w-100";
-    bouton.textContent = "Envoyer";
-    bouton.id = "boutonEnvoyer";
-
-    form.appendChild(titre);
-    form.appendChild(divNom);
     divNom.appendChild(nomLabel);
     divNom.appendChild(nom);
+
+    let divCourriel = document.createElement("div");
+    divCourriel.id = "divCourriel";
+    let courrielLabel = document.createElement("label");
+    courrielLabel.textContent = "Courriel: ";
+    let courriel = document.createElement("input");
+    courriel.type = "email";
+    courriel.name = "courriel";
     divCourriel.appendChild(courrielLabel);
     divCourriel.appendChild(courriel);
+
+    let hiddenField = document.createElement("input");
+    hiddenField.type = "hidden";
+    hiddenField.name = "reponses";
+    hiddenField.id = "hiddenReponses";
+
+    let bouton = document.createElement("button");
+    bouton.textContent = "Envoyer";
+
     form.appendChild(divNom);
     form.appendChild(divCourriel);
+    form.appendChild(hiddenField);
     form.appendChild(bouton);
+
     pElementBodyOffCanva.appendChild(form);
 
     bouton.addEventListener("click", function (event) {
         event.preventDefault();
+
         if (validerFormulaireEnvoiReponses(nom, courriel)) {
-            form.submit();
+
+            let mailtoLink = `mailto:${courriel}?subject=Quiz%20web2&body=${textFinal.textContent}`;
+
+            window.location.href = mailtoLink;
+        } else {
+            alert("Veuillez remplir correctement tous les champs.");
         }
     });
 }
