@@ -162,7 +162,7 @@ function validerReponse() {
   questionnaire.classList.remove("d-none");
 
   let index = 1;
-
+  let noQuestion = 0;
   let nbIterations = 0;
   let bonneReponse = [];
 
@@ -178,12 +178,14 @@ function validerReponse() {
   questionSuivanteBtn.addEventListener("click", function () {
     nbIterations = questionsPourQuestionnaire[index - 1].choixReponses.length;
     bonneReponse = questionsPourQuestionnaire[index - 1].reponses;
-    checkReponse(nbIterations, bonneReponse);
+    checkReponse(nbIterations, bonneReponse, noQuestion);
+    noQuestion++;
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
       afficherToast("toast", "toast-header", "toast-body", 5000);
       console.log(questionsPourQuestionnaire[index - 1].reponses);
       questionSuivanteBtn.disabled = true;
-      terminerQuestionnaire();
+      console.log(questionsPourQuestionnaire);
+      terminerQuestionnaire();      
       console.log("Score: " + score);
     } else {
       afficherQuestionSuivante(index);
@@ -198,7 +200,7 @@ function validerReponse() {
   });
 }
 
-function checkReponse(pNbIterations, pBonneReponses) {
+function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
   let mesReponses = [];
 
   for (let i = 0; i < pNbIterations; i++) {
@@ -208,14 +210,12 @@ function checkReponse(pNbIterations, pBonneReponses) {
     }
   }
 
-  console.log(mesReponses);
-
   let boolBonneReponse;
 
   for (let i = 0; i < pBonneReponses.length; i++) {
     if (mesReponses[i] != pBonneReponses[i]) {
       boolBonneReponse = false;
-      console.log(boolBonneReponse);
+      questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse; 
       break;
     }
   }
@@ -225,10 +225,10 @@ function checkReponse(pNbIterations, pBonneReponses) {
       if (mesReponses[i] == pBonneReponses[i]) {
         boolBonneReponse = true;
         score++;
-        console.log(boolBonneReponse);
+        questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse; 
       }
     }
-  }
+  }  
   boolBonOuNon = boolBonneReponse;
 }
 

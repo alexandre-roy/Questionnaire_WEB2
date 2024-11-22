@@ -147,7 +147,7 @@
     </section>
 
     <section id="creation-questionnaire" class="container mb-4 d-flex justify-content-center">
-      <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
+      <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50 flexy">
         <form id="formCreer">
           <h2 class="text-center fs-2">Création du questionnaire</h2>
           <div>
@@ -166,7 +166,7 @@
           </div>
 
           <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-info py-1 w-50" id="btncreerquestionnaire">
+            <button type="submit" class="btn btn-secondary text-info py-1 w-50 " id="btncreerquestionnaire">
               GÉNÉRER LE QUESTIONNAIRE
             </button>
           </div>
@@ -176,21 +176,22 @@
 
     <section class="container">
       <div class="d-flex justify-content-center mb-4 d-none" id="questionnaire">
-        <div class="card px-4 py-3 bg-light bg-opacity-25 w-75">
+        <div class="card px-4 py-3 bg-light bg-opacity-25 w-75 flexy">
           <form method="get">
-            <h2 class="text-center fs-3" id="noquestion">QUESTION #(TITRE DU MODULE)</h2>
-            <p id="titrequestion" class="fs-5 my-3">NOM DE LA QUESTION</p>
+            <h2 class="text-center fs-3" id="noquestion"></h2>
+            <p id="titrequestion" class="fs-5 my-3"></p>
             <div id="choixreponses">
 
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="row">
+              <div class="col-xl-9 col-md-8 col-sm-7 col-xs-7 col-4"></div>
               <button type="button" id="boutonAssocie" data-bs-toggle="popover" data-bs-trigger="click"
-                data-bs-placement="top" class="btn btn-primary text-info py-1 w-25">
+                data-bs-placement="top" class="btn btn-primary text-info py-1 col-xl-3 col-md-4 col-sm-5 col-xs-5 col-8">
                 QUESTION SUIVANTE
               </button>
               <h3 class="d-none" id="entetePopover">Fin du questionnaire</h3>
               <div id="contenuPopover" class="d-none">
-                <p>Pour consulter vos réponses, cliquer sur le bouton «<a href="#btnmesreponses">Mes réponses</a>» dans l'entete de cette page</p>
+                <p>Pour consulter vos réponses, cliquez « <a href="#btnmesreponses" class="link-underline link-underline-opacity-0">MES RÉPONSES</a> » dans l'entête de cette page</p>
               </div>
             </div>
           </form>
@@ -228,11 +229,11 @@
           <h4>Envoyer mes resultats</h4>
           <div class="my-2" id="divNom">
               <label for="nom">Nom:</label>
-              <input type="text" name="nom" required class="form-control">
+              <input type="text" name="nom" id="nom" class="form-control">
           </div>
           <div class="my-2">
               <label for="courriel">Courriel:</label>
-              <input type="string" name="courriel" required class="form-control">
+              <input type="string" name="courriel" id="courriel" required class="form-control">
           </div>
           <button type="submit" class="btn btn-primary text-info py-1 w-100" id="boutonEnvoyer">Envoyer</button>
       </form>
