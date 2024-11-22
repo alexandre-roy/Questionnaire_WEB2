@@ -146,7 +146,7 @@ function creerQuestionnaire(e) {
 }
 
 function validerReponse() {
-  let questionSuivanteBtn = document.getElementById("pIdBoutonAssocie");
+  let questionSuivanteBtn = document.getElementById("boutonAssocie");
   let questionnaire = document.getElementById("questionnaire");
   questionSuivanteBtn.disabled = false;
 
@@ -157,6 +157,7 @@ function validerReponse() {
 
   if (index == nbQuestions) {
     questionSuivanteBtn.textContent = "TERMINER LE TEST";
+    creerPoppover();
   }
 
   let reponses = [];
@@ -174,6 +175,7 @@ function validerReponse() {
       afficherToast("toast", "toast-header", "toast-body", 5000);
       if (index == nbQuestions) {
         questionSuivanteBtn.textContent = "TERMINER LE TEST";
+        creerPoppover();
       }
     }
   }); 
@@ -184,6 +186,7 @@ function validerReponse() {
 function terminerQuestionnaire() {
   let btnMesReponses = document.getElementById("btnmesreponses");
   btnMesReponses.disabled = false;
+  remplirOffCanvas();
 }
 
 function afficherQuestionSuivante(pNumeroQuestion) {

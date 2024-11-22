@@ -4,56 +4,19 @@
 "use strict";
 /*global bootstrap*/
 
-const questions = [
-    {
-        modulesId: 0,
-        titre: "Quels éléments sont couramment utilisés pour structurer une page web?",
-        typeQuestion: "checkbox",
-        retroactionPositive: "Correct ! Les éléments tels que <header>, <nav>, <main>, <footer> sont couramment utilisés pour structurer une page web.",
-        retroactionNegative: "Pas tout à fait. Il y a plusieurs éléments importants pour la structure d'une page web.",
-        categories: ["HTML", "Structure"],
-        choixReponses: ["<header>", "<article>", "<nav>", "<footer>", "<main>"],
-        reponses: [0, 2, 3], // Les index des bonnes réponses (dans ce cas, 0, 2, 3).
-        pointageQuestion: 4,
-        reponsesUtilisateur: "<header>"
-    },
-    {
-        modulesId: 1,
-        titre: "Quel sélecteur CSS est utilisé pour cibler les éléments de type 'p' qui sont dans un élément de classe 'article'?",
-        typeQuestion: "radio",
-        retroactionPositive: "Exact ! Le sélecteur '.article p' cible les éléments 'p' dans un élément de classe 'article'.",
-        retroactionNegative: "Ce n'est pas la bonne réponse. Veuillez revoir les sélecteurs CSS pour les éléments imbriqués.",
-        categories: ["CSS", "Sélecteurs"],
-        choixReponses: ".article p, #article p, :nth-child(odd), p.article",
-        reponses: [0], // L'index de la bonne réponse (dans ce cas, 0 pour ".article p").
-        pointageQuestion: 4,
-        reponsesUtilisateur: ".article p"
-    },
-    {
-        modulesId: 3,
-            titre: "Quelle commande Git est utilisée pour cloner un référentiel distant sur votre ordinateur local?",
-            typeQuestion: "radio",
-            retroactionPositive: "Correct ! La commande 'git clone' est utilisée pour cloner un référentiel distant sur votre ordinateur local.",
-            retroactionNegative: "Pas tout à fait. Assurez-vous d'utiliser la commande 'git clone' pour cloner un référentiel distant.",
-            categories: ["Git", "Commandes Git"],
-            choixReponses: ["git pull", "git push", "git commit", "git clone"],
-            reponses: [3], // L'index de la bonne réponse (dans ce cas, 3 pour "git clone").
-            pointageQuestion: 4,
-            reponsesUtilisateur: "git pull"
-    }
-];
 
-function creerPoppover(pIdContenuPopover, pIdBoutonAssocie, pEntete){
-    const contenuPoppover = document.getElementById(pIdContenuPopover).innerHTML;
-    const boutonPoppover = document.getElementById(pIdBoutonAssocie);
-    const titrePoppover = document.getElementById(pEntete);
+function creerPoppover(){
+    const titrePoppover = document.getElementById('entetePopover').innerHTML;
 
     let popover = {
-        container: "body",
+        container: 'body',
         title: titrePoppover,
         html : true,
-        content: contenuPoppover
+        content: document.getElementById('contenuPopover').innerHTML,
     };
+
+    let boutonPoppover = document.getElementById('boutonAssocie');
+
     new bootstrap.Popover(boutonPoppover, popover);
 }
 
@@ -65,15 +28,7 @@ function creerHTMLMesReponses(){
     let titre = document.createElement("h2");
     titre.textContent = "Mes réponses";
 
-    questions.forEach((question, index) => {
-        let reponse = question.reponsesUtilisateur;
-        let reponses = question.reponses;
-        let pointage = question.pointageQuestion;
-        let titre = question.titre;
-        let retroactionPositive = question.retroactionPositive;
-        let retroactionNegative = question.retroactionNegative;
-        let moduleNumero = question.moduleNumero;
-        let moduleTitre = question.moduleTitre;
+    questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
 
         let div = document.createElement("div");
 
@@ -83,14 +38,14 @@ function creerHTMLMesReponses(){
         let entete = document.createElement("h2");
         
         let strong = document.createElement("strong");
-        strong.textContent = `Question ${index + 1} - Module ${moduleNumero} (${moduleTitre})`;
+        strong.textContent = `Question ${index + 1} - Module ${questionsPourQuestionnaire.modulesId} (${DATA_QUIZ.modules[questionsPourQuestionnaire.modulesId - 1].titre})`;
         
         let pQuestion = document.createElement("p");
-        pQuestion.textContent = titre;
+        pQuestion.textContent = questionsPourQuestionnaire.titre;
 
         let pReponse = document.createElement("p");
-        let pSReponnse = document.createElement("strong");
-        pSReponse.textContent = `Votre réponse: ${reponse}`;
+        let pSReponse = document.createElement("strong");
+        pSReponse.textContent = `Votre réponse: ${"skibidi"}`;
         
         div.appendChild(divHeader);
         divHeader.appendChild(entete);
@@ -103,21 +58,21 @@ function creerHTMLMesReponses(){
 
             let divBody = document.createElement("div");
             let pPointage = document.createElement("p");
-            pPointage.textContent = ` 1 /${pointage}`;
+            pPointage.textContent = ` 1 / 1`;
             pPointage.className = "text-success";
             let pBoiteTexte = document.createElement("p");
-            pBoiteTexte.textContent = retroactionPositive;
+            pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionPositive;
             pBoiteTexte.className = "text-success";
-            pNbPoint += pointage;
+            pNbPoint += 1;
             PTotalPoint += 1;
             
         } else {
             let divBody = document.createElement("div");
             let pPointage = document.createElement("p");
-            pPointage.textContent = ` 0 /${pointage}`;
+            pPointage.textContent = ` 0 / 1`;
             pPointage.className = "text-warning";
             let pBoiteTexte = document.createElement("p");
-            pBoiteTexte.textContent = retroactionNegative;
+            pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
             pBoiteTexte.className = "text-warning";
             PTotalPoint += 1;
         }
@@ -167,7 +122,7 @@ function creerHTMLMesReponses(){
 }
 
 function remplirOffCanvas(){
-    let offCanvas = document.getElementById("offCanvasContent");
+    let offCanvas = document.getElementById("offcanvas");
     let div = document.createElement("div");
     div.className = "container";
 
@@ -178,4 +133,58 @@ function remplirOffCanvas(){
     div.appendChild(titre);
     div.appendChild(divMesReponses);
     offCanvas.appendChild(div);
+    creerFormulaireEnvoieReponses();
+}
+
+function creerFormulaireEnvoieReponses(){
+
+    let pElementBodyOffCanva = document.getElementById("pElementBodyOffCanva");
+
+    let form = document.createElement("form");
+    form.method = "get";
+
+    let titre = document.createElement("h4");
+    titre.textContent = "Envoyer mes resultats";
+
+    let divNom = document.createElement("div");
+    divNom.className = "my-2";
+
+    let nomLabel = document.createElement("label");
+    nomLabel.textContent = "Nom:";
+    nomLabel.for = "nom";
+
+    let nom = document.createElement("input");
+    nom.type = "text";
+    nom.name = "nom";
+    nom.required = true;
+    nom.className ="form-control";
+
+    let divCourriel = document.createElement("div");
+    divCourriel.className = "my-2";
+
+    let courrielLabel = document.createElement("label");
+    courrielLabel.textContent = "Courriel:";
+    courrielLabel.for = "courriel";
+
+    let courriel = document.createElement("input");
+    courriel.type = "email";
+    courriel.name = "courriel";
+    courriel.required = true;
+    courriel.className ="form-control";
+
+    let bouton = document.createElement("button");
+    bouton.type = "submit";
+    bouton.className = "btn btn-primary text-info py-1 w-100";
+    bouton.textContent = "Envoyer";
+
+    form.appendChild(titre);
+    form.appendChild(divNom);
+    divNom.appendChild(nomLabel);
+    divNom.appendChild(nom);
+    divCourriel.appendChild(courrielLabel);
+    divCourriel.appendChild(courriel);
+    form.appendChild(divNom);
+    form.appendChild(divCourriel);
+    form.appendChild(bouton);
+    pElementBodyOffCanva.appendChild(form);
 }

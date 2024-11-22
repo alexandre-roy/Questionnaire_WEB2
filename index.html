@@ -1,371 +1,256 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon" href="favicon.ico" />
-    <title>WEB2 | Questionnaire</title>
-  </head>
 
-  <body>
-    <header>
-      <nav class="bg-light">
-        <div class="container d-flex justify-content-between">
-          <a class="navbar-brand" href="#">
-            <img
-              src="images/Logo-05B-dev-web-client.png"
-              alt="Logo"
-              width="125"
-            />
-          </a>
-          <button
-            type="button"
-            class="btn btn-dark text-info m-4 py-0"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvas"
-            id="btnmesreponses"
-            disabled
-          >
-            CONSULTER MES RÉPONSES
-          </button>
-        </div>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="favicon.ico" />
+  <title>WEB2 | Questionnaire</title>
+</head>
 
-    <main class="bg-body">
-      <section id="hero" class="position-relative">
-        <p
-          class="position-absolute bottom-0 bg-body bg-opacity-75 p-2 m-5 rounded border border-4 border-dark fs-1"
-        >
-          <strong>05B | DÉVELOPPEMENT WEB COTÉ CLIENT</strong>
-        </p>
-        <img src="images/hero.jpg" alt="hero" width="100%" />
-      </section>
+<body>
+  <header>
+    <nav class="bg-light">
+      <div class="container d-flex justify-content-between">
+        <a class="navbar-brand" href="#">
+          <img src="images/Logo-05B-dev-web-client.png" alt="Logo" width="125" />
+        </a>
+        <button type="button" class="btn btn-dark text-info m-4 py-0" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas" id="btnmesreponses" disabled>
+          CONSULTER MES RÉPONSES
+        </button>
+      </div>
+    </nav>
+  </header>
 
-      <h1 class="container my-4"><strong>Questionnaire formatif</strong></h1>
-      <section id="filtres" class="container my-3 px-3">
-        <div class="accordion">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button
-                class="accordion-button fs-2 collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseOne"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-              >
-                Options de filtres
-              </button>
-            </h2>
-            <div
-              id="collapseOne"
-              class="accordion-collapse collapse"
-              data-bs-parent="#accordionExample"
-            >
-              <div class="accordion-body">
-                <form method="post" novalidate action="">
-                  <div class="row gap-3">
-                    <div class="mb-3 col pe-4">
-                      <label for="txtdescription" class="fs-4 my-2"
-                        ><strong>Description</strong></label
-                      >
-                      <input
-                        class="form-control"
-                        type="text"
-                        name="txtdescription"
-                        id="txtdescription"
-                        placeholder="Veuillez saisir un mot-clé"
-                      />
-                    </div>
+  <main class="bg-body">
+    <section id="hero" class="position-relative">
+      <p class="position-absolute bottom-0 bg-body bg-opacity-75 p-2 m-5 rounded border border-4 border-dark fs-1">
+        <strong>05B | DÉVELOPPEMENT WEB COTÉ CLIENT</strong>
+      </p>
+      <img src="images/hero.jpg" alt="hero" width="100%" />
+    </section>
 
-                    <div class="col row">
-                      <p class="fs-4 my-2"
-                        ><strong>Catégories</strong></p
-                      >
-                      <div class="col">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkhtml"
-                            id="chkhtml"
-                          />
-                          <label class="form-check-label" for="chkhtml">
-                            HTML
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkcss"
-                            id="chkcss"
-                          />
-                          <label class="form-check-label" for="chkcss">
-                            CSS
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkbootstrap"
-                            id="chkbootstrap"
-                          />
-                          <label class="form-check-label" for="chkbootstrap">
-                            Bootstrap
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkjavascript"
-                            id="chkjavascript"
-                          />
-                          <label class="form-check-label" for="chkjavascript">
-                            Javascript
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkformulaires"
-                            id="chkformulaires"
-                          />
-                          <label class="form-check-label" for="chkformulaires">
-                            Formulaires
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value="chkaccessibilite"
-                            id="chkaccessibilite"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="chkaccessibilite"
-                          >
-                            Accessibilité Web
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+    <h1 class="container my-4"><strong>Questionnaire formatif</strong></h1>
+    <section id="filtres" class="container my-3 px-3">
+      <div class="accordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button fs-2 collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Options de filtres
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <form method="post" novalidate action="">
+                <div class="row gap-3">
+                  <div class="mb-3 col pe-4">
+                    <label for="txtdescription" class="fs-4 my-2"><strong>Description</strong></label>
+                    <input class="form-control" type="text" name="txtdescription" id="txtdescription"
+                      placeholder="Veuillez saisir un mot-clé" />
                   </div>
 
-                  <div class="row">
-                    <div class="mb-3 col">
-                      <p for="module" class="fs-4 my-2"
-                        ><strong>Choix du module</strong></p
-                      >
-                      <select class="form-select" id="filtresSelect">
-                        <option value="-1" selected >
-                          Veuillez sélectionner un module
-                        </option>
-                        <option value="0">MODULE 00 - Révision</option>
-                        <option value="1">MODULE 01 - Optimisation CSS</option>
-                        <option value="2">
-                          MODULE 02 - Normes Accessibilité et design UX
-                        </option>
-                        <option value="3">
-                          MODULE 03 - Git en équipe
-                        </option>
-                        <option value="4">MODULE 04 - Bibliothèque de développement d'infterfaces adptatives</option>
-                        <option value="5">
-                          MODULE 05 - Programmation JavaScript
-                        </option>           
-                                    
-                      </select>
-                      <div id="msg-filtres" class="alert alert-secondary px-2 py-1 mt-3 d-none"></div> 
-                    </div>
-                    
+                  <div class="col row">
+                    <p class="fs-4 my-2"><strong>Catégories</strong></p>
                     <div class="col">
-                      <div class="my-5">
-                        <button
-                          type="reset"
-                          class="btn btn-primary text-info py-1 ms-5 me-3"
-                          id="btnaffichertout"
-                        >
-                          TOUT AFFICHER
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-secondary text-info py-1"
-                          id="btnfiltrer"
-                        >
-                          FILTRER
-                        </button>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkhtml" id="chkhtml" />
+                        <label class="form-check-label" for="chkhtml">
+                          HTML
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkcss" id="chkcss" />
+                        <label class="form-check-label" for="chkcss">
+                          CSS
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkbootstrap" id="chkbootstrap" />
+                        <label class="form-check-label" for="chkbootstrap">
+                          Bootstrap
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkjavascript" id="chkjavascript" />
+                        <label class="form-check-label" for="chkjavascript">
+                          Javascript
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkformulaires" id="chkformulaires" />
+                        <label class="form-check-label" for="chkformulaires">
+                          Formulaires
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="chkaccessibilite"
+                          id="chkaccessibilite" />
+                        <label class="form-check-label" for="chkaccessibilite">
+                          Accessibilité Web
+                        </label>
                       </div>
                     </div>
                   </div>
-                </form>
-              </div>
+                </div>
+
+                <div class="row">
+                  <div class="mb-3 col">
+                    <p for="module" class="fs-4 my-2"><strong>Choix du module</strong></p>
+                    <select class="form-select" id="filtresSelect">
+                      <option value="-1" selected>
+                        Veuillez sélectionner un module
+                      </option>
+                      <option value="0">MODULE 00 - Révision</option>
+                      <option value="1">MODULE 01 - Optimisation CSS</option>
+                      <option value="2">
+                        MODULE 02 - Normes Accessibilité et design UX
+                      </option>
+                      <option value="3">
+                        MODULE 03 - Git en équipe
+                      </option>
+                      <option value="4">MODULE 04 - Bibliothèque de développement d'infterfaces adptatives</option>
+                      <option value="5">
+                        MODULE 05 - Programmation JavaScript
+                      </option>
+
+                    </select>
+                    <div id="msg-filtres" class="alert alert-secondary px-2 py-1 mt-3 d-none"></div>
+                  </div>
+
+                  <div class="col">
+                    <div class="my-5">
+                      <button type="reset" class="btn btn-primary text-info py-1 ms-5 me-3" id="btnaffichertout">
+                        TOUT AFFICHER
+                      </button>
+                      <button type="button" class="btn btn-secondary text-info py-1" id="btnfiltrer">
+                        FILTRER
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="container my-3">
-        <div id="modules-theoriques">
+    <section class="container my-3">
+      <div id="modules-theoriques">
 
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section
-        id="creation-questionnaire"
-        class="container mb-4 d-flex justify-content-center"
-      >
-        <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
-          <form id="formCreer">
-            <h2 class="text-center fs-2">Création du questionnaire</h2>
-            <div>
-              <label for="nbquestions" class="mb-2"
-                ><strong>Nombre de questions:</strong></label
-              >
-              <input
-                class="form-control w-25 mb-4"
-                type="number"
-                name="nbquestions"
-                id="nbquestions"
-                min="1"
-                max="5"
-                value="1"
-              />
+    <section id="creation-questionnaire" class="container mb-4 d-flex justify-content-center">
+      <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
+        <form id="formCreer">
+          <h2 class="text-center fs-2">Création du questionnaire</h2>
+          <div>
+            <label for="nbquestions" class="mb-2"><strong>Nombre de questions:</strong></label>
+            <input class="form-control w-25 mb-4" type="number" name="nbquestions" id="nbquestions" min="1" max="5"
+              value="1" />
+          </div>
+          <div class="mb-4">
+            <p>
+              Après avoir utilisé les filtres, cliquer sur le bouton pour
+              créer le test.
+            </p>
+            <p>
+              Si vous ne filtrez pas, le test sera basé sur tout les modules.
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary text-info py-1 w-50" id="btncreerquestionnaire">
+              GÉNÉRER LE QUESTIONNAIRE
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="d-flex justify-content-center mb-4 d-none" id="questionnaire">
+        <div class="card px-4 py-3 bg-light bg-opacity-25 w-75">
+          <form method="get">
+            <h2 class="text-center fs-3" id="noquestion">QUESTION #(TITRE DU MODULE)</h2>
+            <p id="titrequestion" class="fs-5 my-3">NOM DE LA QUESTION</p>
+            <div id="choixreponses">
+
             </div>
-            <div class="mb-4">
-              <p>
-                Après avoir utilisé les filtres, cliquer sur le bouton pour
-                créer le test.
-              </p>
-              <p>
-                Si vous ne filtrez pas, le test sera basé sur tout les modules.
-              </p>
-            </div>
-
-            <div class="d-flex justify-content-center">
-              <button
-                type="submit"
-                class="btn btn-secondary text-info py-1 w-50"
-                id="btncreerquestionnaire"
-              >
-                GÉNÉRER LE QUESTIONNAIRE
+            <div class="d-flex justify-content-end">
+              <button type="button" id="boutonAssocie" data-bs-toggle="popover" data-bs-trigger="click"
+                data-bs-placement="top" class="btn btn-primary text-info py-1 w-25">
+                QUESTION SUIVANTE
               </button>
+              <h3 class="d-none" id="entetePopover">Fin du questionnaire</h3>
+              <div id="contenuPopover" class="d-none">
+                <p>Pour consulter vos reponses, cliquer sur le bouton mes reponses dans l'entete de cette page</p>
+              </div>
             </div>
           </form>
         </div>
-      </section>
-
-      <section class="container">
-        <div class="d-flex justify-content-center mb-4 d-none" id="questionnaire">
-          <div class="card px-4 py-3 bg-light bg-opacity-25 w-75">
-            <form method="get">
-              <h2 class="text-center fs-3" id="noquestion">QUESTION #(TITRE DU MODULE)</h2>
-              <p id="titrequestion" class="fs-5 my-3">NOM DE LA QUESTION</p>
-              <div id="choixreponses">
-                
-              </div>
-              <div class="d-flex justify-content-end">
-                <button
-                  type="button"
-                  id="pIdBoutonAssocie"
-                  data-bs-toggle="popover"
-                  data-bs-trigger="focus"   
-                  data-bs-placement="top"
-                  class="btn btn-primary text-info py-1 w-25"
-                >
-                QUESTION SUIVANTE
-                </button>
-                <h3 class="d-none" id="pEntete">Fin du questionnaire</h3>
-                <div id="contenu-popover" class="d-none">
-                  <p>Pour consulter vos reponses, cliquer sur le bouton mes reponses dans l'entete de cette page</p>
-              </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="bg-light">
-      <div class="container d-flex justify-content-between p-5">
-        <p class="mb-0">
-          <strong>05B.WEB2 | Développement Web côté client</strong>
-        </p>
-        <p class="mb-0">
-          ©Copyright A2024 - ALEXANDRE ROY ET EMMANUEL XUDOUS - Tous droits
-          réservés
-        </p>
       </div>
-    </footer>
+    </section>
+  </main>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas">
-      <div class="offcanvas-header">
-        <h3 class="offcanvas-title">Mes réponses</h3>
-      </div>
+  <footer class="bg-light">
+    <div class="container d-flex justify-content-between p-5">
+      <p class="mb-0">
+        <strong>05B.WEB2 | Développement Web côté client</strong>
+      </p>
+      <p class="mb-0">
+        ©Copyright A2024 - ALEXANDRE ROY ET EMMANUEL XUDOUS - Tous droits
+        réservés
+      </p>
+    </div>
+  </footer>
 
-      <div class="offcanvas-body">
-        <div>
-          <p>RÉPONSES</p>
-        </div>
-        <div class="d-flex justify-content-center">
-          <div class="border-top border-2 border-dark my-4 w-75"></div>
-        </div>
-        <form method="get">
-          <h4>Envoyer mes résultats</h4>
-          <div class="my-2">
-            <label for="txtnom"><strong>Nom</strong></label>
-            <input class="form-control" type="text" name="txtnom" id="txtnom" />
-          </div>
-
-          <div class="my-2">
-            <label for="txtcourriel"><strong>Courriel</strong></label>
-            <input
-              class="form-control"
-              type="text"
-              name="txtcourriel"
-              id="txtcourriel"
-            />
-          </div>
-          <button type="button" class="btn btn-primary text-info py-1 w-100">
-            ENVOYER
-          </button>
-        </form>
-      </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas">
+    <div class="offcanvas-header">
+      <h3 class="offcanvas-title">Mes réponses</h3>
     </div>
 
-    <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 10">
-      <div id="toast" class="toast bg-body" role="alert" aria-live="assertive"
-          aria-atomic="true">
-          <div class="toast-header">
-              <img src="images/Logo-05B-dev-web-client.png" alt="logo" class="w-25 rounded me-3">
-              <strong class="fs-3 me-auto">Rétroaction</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-          <div class="toast-body" id="toast-body">
-              
-          </div>
+    <div class="offcanvas-body">
+      <div>
+        <p>RÉPONSES</p>
       </div>
+      <div class="d-flex justify-content-center">
+        <div class="border-top border-2 border-dark my-4 w-75"></div>
+      </div>
+      <div id="pElementBodyOffCanva">
+        
+      </div>
+    </div>
   </div>
 
-    <script src="js/javascript-etu1.js"></script>
-    <script src="js/javascript-etu2.js"></script>
-    <script src="js/data-quiz.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 10">
+    <div id="toast" class="toast bg-body" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="images/Logo-05B-dev-web-client.png" alt="logo" class="w-25 rounded me-3">
+        <strong class="fs-3 me-auto">Rétroaction</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="toast-body">
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/javascript-etu1.js"></script>
+  <script src="js/javascript-etu2.js"></script>
+  <script src="js/data-quiz.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
