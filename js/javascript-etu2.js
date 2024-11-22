@@ -3,19 +3,21 @@
  */
 "use strict";
 /*global bootstrap*/
+/*global DATA_QUIZ*/
+/*global questionsPourQuestionnaire*/
 
 
 function creerPoppover(){
-    const titrePoppover = document.getElementById('entetePopover').innerHTML;
+    const titrePoppover = document.getElementById("entetePopover").innerHTML;
 
     let popover = {
-        container: 'body',
+        container: "body",
         title: titrePoppover,
         html : true,
-        content: document.getElementById('contenuPopover').innerHTML,
+        content: document.getElementById("contenuPopover").innerHTML,
     };
 
-    let boutonPoppover = document.getElementById('boutonAssocie');
+    let boutonPoppover = document.getElementById("boutonAssocie");
 
     new bootstrap.Popover(boutonPoppover, popover);
 }
@@ -29,6 +31,10 @@ function creerHTMLMesReponses(){
     titre.textContent = "Mes réponses";
 
     questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
+
+        let pNbPoint = 0;
+
+        let PTotalPoint = 0;
 
         let div = document.createElement("div");
 
@@ -65,36 +71,38 @@ function creerHTMLMesReponses(){
             pBoiteTexte.className = "text-success";
             pNbPoint += 1;
             PTotalPoint += 1;
+            div.appendChild(divBody);
+            divBody.appendChild(pPointage);
+            divBody.appendChild(pBoiteTexte);
             
         } else {
             let divBody = document.createElement("div");
             let pPointage = document.createElement("p");
-            pPointage.textContent = ` 0 / 1`;
+            pPointage.textContent = " 0 / 1";
             pPointage.className = "text-warning";
             let pBoiteTexte = document.createElement("p");
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
             pBoiteTexte.className = "text-warning";
             PTotalPoint += 1;
+            div.appendChild(divBody);
+            divBody.appendChild(pPointage);
+            divBody.appendChild(pBoiteTexte);
         }
-
-        div.appendChild(divBody);
-        divBody.appendChild(pPointage);
-        divBody.appendChild(pBoiteTexte);
 
         let divFooter = document.createElement("div");
         let tScore = document.createElement("h2");
         let tScoreStrong = document.createElement("strong");
         tScoreStrong.textContent = "Votre score";
         let pScore = document.createElement("p");
-        pScore.textContent = `Voici le total de vos points :`;
+        pScore.textContent = "Voici le total de vos points :";
         let pTScore = document.createElement("h3");
         let PTSScore = document.createElement("strong");
-        PTSScore.textContent = `Bonne(s) réponse(s) :`;
+        PTSScore.textContent = "Bonne(s) réponse(s) :";
         let Score = document.createElement("p");
         Score.textContent = `${pNbPoint} / ${PTotalPoint}`;
         let tPourcentage = document.createElement("h3");
-        tSPourcentage = document.createElement("strong");
-        tSPourcentage.textContent = `Score :`;
+        let tSPourcentage = document.createElement("strong");
+        tSPourcentage.textContent = "Score :";
         let pPourcentage = document.createElement("p");
         pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
         if (pNbPoint / PTotalPoint >= 0.5){

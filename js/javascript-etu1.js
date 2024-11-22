@@ -274,8 +274,8 @@ function creerContenuRetroaction(pEstPositive, pContenu) {
 function initialisation() {
   let creer = document.getElementById("formCreer");
   creer.addEventListener("submit", creerQuestionnaire);
-
   afficherModules();
+  creerFormulaireEnvoieReponses();
 }
 
 window.addEventListener("DOMContentLoaded", initialisation);
