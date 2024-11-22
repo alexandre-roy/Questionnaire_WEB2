@@ -11,6 +11,9 @@ import { remplirOffCanvas } from "./javascript-etu2.js";
 let questionsPourQuestionnaire = [];
 let nbQuestions;
 let noModuleSelectionne = 6;
+let btnCreer = document.getElementById("btncreerquestionnaire");
+let boolBonOuNon;
+let score = 0;
 
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
   let rowDiv = document.getElementById("modules-theoriques");
@@ -113,6 +116,8 @@ function afficherModules() {
 function creerQuestionnaire(e) {
   e.preventDefault();
 
+  btnCreer.disabled = true;
+
   nbQuestions = parseInt(e.target.nbquestions.value);
 
   questionsPourQuestionnaire = [];
@@ -158,32 +163,73 @@ function validerReponse() {
 
   let index = 1;
 
+  let nbIterations = 0;
+  let bonneReponse = [];
+
+  console.log(questionsPourQuestionnaire[index - 1].reponses);
+
   if (index == nbQuestions) {
     questionSuivanteBtn.textContent = "TERMINER LE TEST";
     creerPoppover();
   }
 
-  let reponses = [];
   afficherQuestionSuivante(0);
 
   questionSuivanteBtn.addEventListener("click", function () {
-
+    nbIterations = questionsPourQuestionnaire[index - 1].choixReponses.length;
+    bonneReponse = questionsPourQuestionnaire[index - 1].reponses;
+    checkReponse(nbIterations, bonneReponse);
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
       afficherToast("toast", "toast-header", "toast-body", 5000);
+      console.log(questionsPourQuestionnaire[index - 1].reponses);
       questionSuivanteBtn.disabled = true;
       terminerQuestionnaire();
-    } else {      
+      console.log("Score: " + score);
+    } else {
       afficherQuestionSuivante(index);
       index++;
       afficherToast("toast", "toast-header", "toast-body", 5000);
+      console.log(questionsPourQuestionnaire[index - 1].reponses);
       if (index == nbQuestions) {
         questionSuivanteBtn.textContent = "TERMINER LE TEST";
         creerPoppover();
       }
     }
-  }); 
+  });
+}
 
-  console.log(reponses);
+function checkReponse(pNbIterations, pBonneReponses) {
+  let mesReponses = [];
+
+  for (let i = 0; i < pNbIterations; i++) {
+    let option = document.getElementById(`reponse${i}`);
+    if (option.checked) {
+      mesReponses.push(i);
+    }
+  }
+
+  console.log(mesReponses);
+
+  let boolBonneReponse;
+
+  for (let i = 0; i < pBonneReponses.length; i++) {
+    if (mesReponses[i] != pBonneReponses[i]) {
+      boolBonneReponse = false;
+      console.log(boolBonneReponse);
+      break;
+    }
+  }
+
+  if (boolBonneReponse != false) {
+    for (let i = 0; i < pBonneReponses.length; i++) {
+      if (mesReponses[i] == pBonneReponses[i]) {
+        boolBonneReponse = true;
+        score++;
+        console.log(boolBonneReponse);
+      }
+    }
+  }
+  boolBonOuNon = boolBonneReponse;
 }
 
 function terminerQuestionnaire() {
@@ -240,22 +286,22 @@ function afficherQuestionSuivante(pNumeroQuestion) {
 }
 
 function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
-
   let toast = document.getElementById("toast");
 
   let optionsToast = {
-      delay: pTemps,
-      animation: true,
-      autohide: true
+    delay: pTemps,
+    animation: true,
+    autohide: true,
   };
 
-  // Récupération du corps du Toast.
   let toastBody = toast.getElementsByClassName(pElementHTMLContenu)[0];
-  // Ajout de texte dans les deux paragraphes.
   toastBody.firstChild.textContent = pTitre;
-  toastBody.lastChild.textContent = "CALISSE QUE T CAVE !";
 
-  // Création du Toast.
+  if (boolBonOuNon) {
+    toastBody.lastChild.textContent = "Bonne réponse!";
+  } else {
+    toastBody.lastChild.textContent = "Mauvaise réponse!";
+  }
   new bootstrap.Toast(toast, optionsToast).show();
 }
 
@@ -264,9 +310,8 @@ function creerContenuRetroaction(pEstPositive, pContenu) {
 
   if (pEstPositive) {
     toastBody.textContent = pContenu;
-  }  
+  }
 }
-
 
 /*************
     Cette fonction est rattachée à l'événement "Load". 
