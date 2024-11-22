@@ -19,6 +19,12 @@
 * Fonction afficherModules
 * Fonction afficherModulesSelonFiltre
 * Fonction validerFormulaireFiltres
+* Fonction creerQuestionnaire
+* Fonction validerReponse
+* Fonction terminerQuestionnaire
+* Fonction afficherQuestionSuivante
+* Fonction afficherToast
+* Fonction creerContenuRetroaction
 * ...
 ## Étudiant 2 - Emmanuel Xudous
 * Tâche ou fonction 1
@@ -29,4 +35,4 @@
 ## Titres : Fjalla One (https://fonts.google.com/specimen/Fjalla+One)
 ## Texte courant : Inter ((https://fonts.google.com/specimen/Inter))
 # COULEURS
-* #C2393C, #58837A, #A4C3C5, #F5F5F5, #252525
+* #C2393C, #58837A, #BCCAD4, #F5F5F5, #252525
