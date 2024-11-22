@@ -1,13 +1,12 @@
 /**
  *  Fichier principal javascript
  */
-"use strict";
 /*global bootstrap*/
 /*global DATA_QUIZ*/
 /*global questionsPourQuestionnaire*/
 
 
-function creerPoppover(){
+export function creerPoppover(){
     const titrePoppover = document.getElementById("entetePopover").innerHTML;
 
     let popover = {
@@ -59,12 +58,12 @@ function creerHTMLMesReponses(){
         divHeader.appendChild(pQuestion);
         divHeader.appendChild(pReponse);
         pReponse.appendChild(pSReponse);
-
+        
         if(reponses.includes(reponse)){
 
             let divBody = document.createElement("div");
             let pPointage = document.createElement("p");
-            pPointage.textContent = ` 1 / 1`;
+            pPointage.textContent = "1 / 1";
             pPointage.className = "text-success";
             let pBoiteTexte = document.createElement("p");
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionPositive;
@@ -129,7 +128,7 @@ function creerHTMLMesReponses(){
     });
 }
 
-function remplirOffCanvas(){
+export function remplirOffCanvas(){
     let offCanvas = document.getElementById("offcanvas");
     let div = document.createElement("div");
     div.className = "container";
@@ -144,7 +143,7 @@ function remplirOffCanvas(){
     creerFormulaireEnvoieReponses();
 }
 
-function creerFormulaireEnvoieReponses(){
+export function creerFormulaireEnvoieReponses(){
 
     let pElementBodyOffCanva = document.getElementById("pElementBodyOffCanva");
 
@@ -156,6 +155,7 @@ function creerFormulaireEnvoieReponses(){
 
     let divNom = document.createElement("div");
     divNom.className = "my-2";
+    divNom.id = "divNom";
 
     let nomLabel = document.createElement("label");
     nomLabel.textContent = "Nom:";
@@ -175,7 +175,7 @@ function creerFormulaireEnvoieReponses(){
     courrielLabel.for = "courriel";
 
     let courriel = document.createElement("input");
-    courriel.type = "email";
+    courriel.type = "string";
     courriel.name = "courriel";
     courriel.required = true;
     courriel.className ="form-control";
@@ -184,6 +184,7 @@ function creerFormulaireEnvoieReponses(){
     bouton.type = "submit";
     bouton.className = "btn btn-primary text-info py-1 w-100";
     bouton.textContent = "Envoyer";
+    bouton.id = "boutonEnvoyer";
 
     form.appendChild(titre);
     form.appendChild(divNom);
@@ -195,4 +196,45 @@ function creerFormulaireEnvoieReponses(){
     form.appendChild(divCourriel);
     form.appendChild(bouton);
     pElementBodyOffCanva.appendChild(form);
+
+    bouton.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (validerFormulaireEnvoiReponses(nom, courriel)) {
+            form.submit();
+        }
+    });
+}
+
+function validerFormulaireEnvoiReponses(nom, courriel){
+
+    let nomValid = false;
+
+    if (nom.value.trim() != ""){
+        if (nom.length >= 2){
+            if (nom[0] != nom[0].toUpperCase()){
+                nom.style.border = "1px solid green";
+                nomValid = true;
+                
+            }
+            else{
+            nom.style.border = "1px solid red";
+            }
+        }
+        else{
+            nom.style.border = "1px solid red";
+        }
+        
+    }
+    else{
+        nom.style.border = "1px solid red";
+    }
+
+    let regexCourriel = /^.+@.+/.test(courriel.value);
+    if (regexCourriel){
+        courriel.style.border = "1px solid green";
+    }
+    else{
+        courriel.style.border = "1px solid red";
+    }
+    return nomValid && regexCourriel;
 }

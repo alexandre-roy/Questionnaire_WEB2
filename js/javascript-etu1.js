@@ -1,9 +1,12 @@
 /**
  *  Fichier principal javascript
  */
-"use strict";
-
+/*global bootstrap*/
 /*global DATA_QUIZ*/
+
+import { creerPoppover } from "./javascript-etu2.js";
+import { creerFormulaireEnvoieReponses } from "./javascript-etu2.js";
+import { remplirOffCanvas } from "./javascript-etu2.js";
 
 let questionsPourQuestionnaire = [];
 let nbQuestions;
