@@ -142,31 +142,43 @@ function creerQuestionnaire(e) {
     );
   }
 
-  afficherQuestions(questionsPourQuestionnaire);
+  validerReponse(questionsPourQuestionnaire);
 }
 
-function afficherQuestions() {
+function validerReponse() {
   let questionSuivanteBtn = document.getElementById("pIdBoutonAssocie");
   let questionnaire = document.getElementById("questionnaire");
+  questionSuivanteBtn.disabled = false;
 
+  questionSuivanteBtn.textContent = "QUESTION SUIVANTE";
   questionnaire.classList.remove("d-none");
-
-  afficherQuestionSuivante(0);
 
   let index = 1;
 
+  if (index == nbQuestions) {
+    questionSuivanteBtn.textContent = "TERMINER LE TEST";
+  }
+
+  let reponses = [];
+  afficherQuestionSuivante(0);
+
   questionSuivanteBtn.addEventListener("click", function () {
+
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
+      afficherToast("toast", "toast-header", "toast-body", 5000);
+      questionSuivanteBtn.disabled = true;
       terminerQuestionnaire();
-    } else {
+    } else {      
       afficherQuestionSuivante(index);
       index++;
-
+      afficherToast("toast", "toast-header", "toast-body", 5000);
       if (index == nbQuestions) {
         questionSuivanteBtn.textContent = "TERMINER LE TEST";
       }
     }
-  });
+  }); 
+
+  console.log(reponses);
 }
 
 function terminerQuestionnaire() {
@@ -221,9 +233,34 @@ function afficherQuestionSuivante(pNumeroQuestion) {
   }
 }
 
-function afficherToast(pId, pTitre, pElementHTMLContenu, pTemp){
-  
+function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
+
+  let toast = document.getElementById("toast");
+
+  let optionsToast = {
+      delay: pTemps,
+      animation: true,
+      autohide: true
+  };
+
+  // Récupération du corps du Toast.
+  let toastBody = toast.getElementsByClassName(pElementHTMLContenu)[0];
+  // Ajout de texte dans les deux paragraphes.
+  toastBody.firstChild.textContent = pTitre;
+  toastBody.lastChild.textContent = "CALISSE QUE T CAVE !";
+
+  // Création du Toast.
+  new bootstrap.Toast(toast, optionsToast).show();
 }
+
+function creerContenuRetroaction(pEstPositive, pContenu) {
+  let toastBody = document.getElementById("toast-body");
+
+  if (pEstPositive) {
+    toastBody.textContent = pContenu;
+  }  
+}
+
 
 /*************
     Cette fonction est rattachée à l'événement "Load". 

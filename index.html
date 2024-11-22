@@ -10,7 +10,7 @@
 
   <body>
     <header>
-      <nav class="bg-body">
+      <nav class="bg-warning">
         <div class="container d-flex justify-content-between">
           <a class="navbar-brand" href="#">
             <img
@@ -220,7 +220,7 @@
 
       <section
         id="creation-questionnaire"
-        class="container my-4 d-flex justify-content-center"
+        class="container mb-4 d-flex justify-content-center"
       >
         <div class="card px-4 py-3 bg-secondary bg-opacity-25 w-50">
           <form id="formCreer">
@@ -276,7 +276,7 @@
                   type="button"
                   id="pIdBoutonAssocie"
                   data-bs-toggle="popover"
-                  data-bs-trigger="focus"
+                  data-bs-trigger="focus"   
                   data-bs-placement="top"
                   class="btn btn-primary text-info py-1 w-25"
                 >
@@ -339,6 +339,20 @@
         </form>
       </div>
     </div>
+
+    <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 10">
+      <div id="toast" class="toast bg-body" role="alert" aria-live="assertive"
+          aria-atomic="true">
+          <div class="toast-header">
+              <img src="images/Logo-05B-dev-web-client.png" alt="logo" class="w-25 rounded me-3">
+              <strong class="fs-3 me-auto">Rétroaction</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body" id="toast-body">
+              
+          </div>
+      </div>
+  </div>
 
     <script src="js/javascript-etu1.js"></script>
     <script src="js/javascript-etu2.js"></script>
