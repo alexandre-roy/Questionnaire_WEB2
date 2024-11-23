@@ -4,11 +4,9 @@
 /*global bootstrap*/
 /*global DATA_QUIZ*/
 
-import { creerPoppover } from "./javascript-etu2.js";
-import { creerFormulaireEnvoieReponses } from "./javascript-etu2.js";
-import { remplirOffCanvas } from "./javascript-etu2.js";
+import { creerPoppover, remplirOffCanvas  } from "./javascript-etu2.js";
 
-let questionsPourQuestionnaire = [];
+export let questionsPourQuestionnaire = [];
 let nbQuestions;
 let noModuleSelectionne = 6;
 let btnCreer = document.getElementById("btncreerquestionnaire");
@@ -360,7 +358,6 @@ function initialisation() {
   let creer = document.getElementById("formCreer");
   creer.addEventListener("submit", creerQuestionnaire);
   afficherModules();
-  creerFormulaireEnvoieReponses();
 }
 
 window.addEventListener("DOMContentLoaded", initialisation);

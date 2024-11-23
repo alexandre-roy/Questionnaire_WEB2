@@ -3,16 +3,16 @@
  */
 /*global bootstrap*/
 /*global DATA_QUIZ*/
-/*global questionsPourQuestionnaire*/
 
+import { questionsPourQuestionnaire } from "./javascript-etu1.js";
 
-export function creerPoppover(){
+export function creerPoppover() {
     const titrePoppover = document.getElementById("entetePopover").innerHTML;
 
     let popover = {
         container: "body",
         title: titrePoppover,
-        html : true,
+        html: true,
         content: document.getElementById("contenuPopover").innerHTML,
     };
 
@@ -21,15 +21,18 @@ export function creerPoppover(){
     new bootstrap.Popover(boutonPoppover, popover);
 }
 
-function calculerScore(pNbPoint, PTotalPoint){
+function calculerScore(pNbPoint, PTotalPoint) {
     return Math.round((pNbPoint / PTotalPoint) * 100);
 }
 
-function creerHTMLMesReponses(){
+function creerHTMLMesReponses() {
+
     let titre = document.createElement("h2");
     titre.textContent = "Mes réponses";
+    titre.classList.add("text-center", "mb-4");
     let textFinal = document.createElement("p");
     textFinal.className = "d-none";
+    let offCanvas = document.getElementById("pElementBodyOffCanva");
 
     questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
 
@@ -38,22 +41,21 @@ function creerHTMLMesReponses(){
         let PTotalPoint = 0;
 
         let div = document.createElement("div");
+        div.classList.add("card", "mb-4", "border-0");
 
         let divHeader = document.createElement("div");
-        divHeader.className = "toast-header";
-        
-        let entete = document.createElement("h2");
-        
+
+        let entete = document.createElement("h5");
         let strong = document.createElement("strong");
-        strong.textContent = `Question ${index + 1} - Module ${questionsPourQuestionnaire.modulesId} (${DATA_QUIZ.modules[questionsPourQuestionnaire.modulesId - 1].titre})`;
-        
+        strong.textContent = `Question ${index + 1} - Module ${questionsPourQuestionnaire.modulesId} (${DATA_QUIZ.modules[questionsPourQuestionnaire.modulesId].titre})`;
+
         let pQuestion = document.createElement("p");
         pQuestion.textContent = questionsPourQuestionnaire.titre;
 
         let pReponse = document.createElement("p");
         let pSReponse = document.createElement("strong");
-        pSReponse.textContent = `Votre réponse: ${"skibidi"}`;
-        
+        pSReponse.textContent = `Votre réponse: ${questionsPourQuestionnaire.mesReponses}`;
+
         div.appendChild(divHeader);
         divHeader.appendChild(entete);
         entete.appendChild(strong);
@@ -62,7 +64,7 @@ function creerHTMLMesReponses(){
         pReponse.appendChild(pSReponse);
         let pPointage = document.createElement("p");
         let pBoiteTexte = document.createElement("p");
-        if(reponses.includes(reponse)){
+        if (questionsPourQuestionnaire.bonneReponse) {
 
             let divBody = document.createElement("div");
             pPointage.textContent = "1 / 1";
@@ -74,13 +76,13 @@ function creerHTMLMesReponses(){
             div.appendChild(divBody);
             divBody.appendChild(pPointage);
             divBody.appendChild(pBoiteTexte);
-            
+
         } else {
             let divBody = document.createElement("div");
             pPointage.textContent = " 0 / 1";
-            pPointage.className = "text-warning";
+            pPointage.className = "text-error";
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
-            pBoiteTexte.className = "text-warning";
+            pBoiteTexte.className = "text-red";
             PTotalPoint += 1;
             div.appendChild(divBody);
             divBody.appendChild(pPointage);
@@ -103,18 +105,17 @@ function creerHTMLMesReponses(){
         tSPourcentage.textContent = "Score :";
         let pPourcentage = document.createElement("p");
         pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
-        if (pNbPoint / PTotalPoint >= 0.5){
+        if (pNbPoint / PTotalPoint >= 0.5) {
             Score.className = "text-success";
             pPourcentage.className = "bg-success";
         }
-        else
-        {
+        else {
             Score.className = "text-warning";
             pPourcentage.className = "bg-warning";
         }
 
         textFinal.textContent += `${strong.textContent} ${pQuestion.textContent} ${pSReponse.textContent} ${pPointage.textContent} ${pBoiteTexte.textContent} ${tScoreStrong.textContent} ${pScore.textContent} ${PTSScore.textContent} ${Score.textContent} ${tSPourcentage.textContent} ${pPourcentage.textContent}`;
-        
+
         div.appendChild(divFooter);
         divFooter.appendChild(tScore);
         tScore.appendChild(tScoreStrong);
@@ -125,67 +126,28 @@ function creerHTMLMesReponses(){
         divFooter.appendChild(tPourcentage);
         tPourcentage.appendChild(tSPourcentage);
         divFooter.appendChild(pPourcentage);
-
+        offCanvas.appendChild(div);
     });
 
 }
 
-export function remplirOffCanvas(){
-    let offCanvas = document.getElementById("offcanvas");
-    let div = document.createElement("div");
-    div.className = "container";
+export function remplirOffCanvas() {
+    let offCanvas = document.getElementById("pElementBodyOffCanva");
+    let bdiv = document.createElement("div");
+    bdiv.className = "container";
 
-    let titre = document.createElement("h1");
-    titre.textContent = "Résultats du quiz";
+    let titre = document.createElement("h2");
+    titre.textContent = "Mes réponses";
 
-    let divMesReponses = creerHTMLMesReponses();
-    div.appendChild(titre);
-    div.appendChild(divMesReponses);
-    offCanvas.appendChild(div);
+    bdiv.prepend(titre);
+    offCanvas.appendChild(bdiv);
+    creerHTMLMesReponses();
     creerFormulaireEnvoieReponses();
 }
 
-export function creerFormulaireEnvoieReponses() {
-    let pElementBodyOffCanva = document.getElementById("bodyOffCanvas");
+function creerFormulaireEnvoieReponses() {
 
-    let form = document.createElement("form");
-    form.id = "formEnvoiReponses";
-    let divNom = document.createElement("div");
-    divNom.id = "divNom";
-    let nomLabel = document.createElement("label");
-    nomLabel.textContent = "Nom: ";
-    let nom = document.createElement("input");
-    nom.type = "text";
-    nom.name = "nom";
-    divNom.appendChild(nomLabel);
-    divNom.appendChild(nom);
-
-    let divCourriel = document.createElement("div");
-    divCourriel.id = "divCourriel";
-    let courrielLabel = document.createElement("label");
-    courrielLabel.textContent = "Courriel: ";
-    let courriel = document.createElement("input");
-    courriel.type = "email";
-    courriel.name = "courriel";
-    divCourriel.appendChild(courrielLabel);
-    divCourriel.appendChild(courriel);
-
-    let hiddenField = document.createElement("input");
-    hiddenField.type = "hidden";
-    hiddenField.name = "reponses";
-    hiddenField.id = "hiddenReponses";
-
-    let bouton = document.createElement("button");
-    bouton.textContent = "Envoyer";
-
-    form.appendChild(divNom);
-    form.appendChild(divCourriel);
-    form.appendChild(hiddenField);
-    form.appendChild(bouton);
-
-    pElementBodyOffCanva.appendChild(form);
-
-    bouton.addEventListener("click", function (event) {
+    document.getElementById("boutonEnvoyer").addEventListener("click", function (event) {
         event.preventDefault();
 
         if (validerFormulaireEnvoiReponses(nom, courriel)) {
@@ -193,42 +155,40 @@ export function creerFormulaireEnvoieReponses() {
             let mailtoLink = `mailto:${courriel}?subject=Quiz%20web2&body=${textFinal.textContent}`;
 
             window.location.href = mailtoLink;
-        } else {
-            alert("Veuillez remplir correctement tous les champs.");
         }
     });
 }
 
-function validerFormulaireEnvoiReponses(nom, courriel){
+function validerFormulaireEnvoiReponses(nom, courriel) {
 
     let nomValid = false;
 
-    if (nom.value.trim() != ""){
-        if (nom.length >= 2){
-            if (nom[0] != nom[0].toUpperCase()){
-                nom.style.border = "1px solid green";
+    if (nom.value.trim() != "") {
+        if (nom.length >= 2) {
+            if (nom[0] != nom[0].toUpperCase()) {
+                nom.classList.add("is-valid");
                 nomValid = true;
-                
+
             }
-            else{
-            nom.style.border = "1px solid red";
+            else {
+                nom.classList.add("is-invalid");
             }
         }
-        else{
-            nom.style.border = "1px solid red";
+        else {
+            nom.classList.add("is-invalid");
         }
-        
+
     }
-    else{
-        nom.style.border = "1px solid red";
+    else {
+        nom.classList.add("is-invalid");
     }
 
     let regexCourriel = /^.+@.+/.test(courriel.value);
-    if (regexCourriel){
-        courriel.style.border = "1px solid green";
+    if (regexCourriel) {
+        courriel.classList.add("is-valid");
     }
-    else{
-        courriel.style.border = "1px solid red";
+    else {
+        courriel.classList.add("is-invalid");
     }
     return nomValid && regexCourriel;
 }
