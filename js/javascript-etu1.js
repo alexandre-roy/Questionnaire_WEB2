@@ -181,16 +181,14 @@ function validerReponse() {
     checkReponse(nbIterations, bonneReponse, noQuestion);
     noQuestion++;
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
-      afficherToast("toast", "toast-header", "toast-body", 5000);
       console.log(questionsPourQuestionnaire[index - 1].reponses);
       questionSuivanteBtn.disabled = true;
       console.log(questionsPourQuestionnaire);
-      terminerQuestionnaire();      
+      terminerQuestionnaire();
       console.log("Score: " + score);
     } else {
       afficherQuestionSuivante(index);
       index++;
-      afficherToast("toast", "toast-header", "toast-body", 5000);
       console.log(questionsPourQuestionnaire[index - 1].reponses);
       if (index == nbQuestions) {
         questionSuivanteBtn.textContent = "TERMINER LE TEST";
@@ -202,12 +200,24 @@ function validerReponse() {
 
 function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
   let mesReponses = [];
+  let repondu = false;
 
   for (let i = 0; i < pNbIterations; i++) {
     let option = document.getElementById(`reponse${i}`);
     if (option.checked) {
       mesReponses.push(i);
+      repondu = true;
     }
+  }
+
+  if (!repondu) {
+    afficherToast(
+      "toast",
+      "Erreur",
+      "Vous devez sélectionner une réponse.",
+      5000
+    );
+    return;
   }
 
   let boolBonneReponse;
@@ -215,7 +225,12 @@ function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
   for (let i = 0; i < pBonneReponses.length; i++) {
     if (mesReponses[i] != pBonneReponses[i]) {
       boolBonneReponse = false;
-      questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse; 
+      questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
+      let contenu = afficherRetroaction(
+        false,
+        questionsPourQuestionnaire[pNoQuestion]
+      );
+      afficherToast("toast", "retroactionNegative", contenu, 5000);
       break;
     }
   }
@@ -225,10 +240,15 @@ function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
       if (mesReponses[i] == pBonneReponses[i]) {
         boolBonneReponse = true;
         score++;
-        questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse; 
+        questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
+        let contenu = afficherRetroaction(
+          true,
+          questionsPourQuestionnaire[pNoQuestion]
+        );
+        afficherToast("toast", "retroactionPositive", contenu, 5000);
       }
     }
-  }  
+  }
   boolBonOuNon = boolBonneReponse;
 }
 
@@ -286,7 +306,10 @@ function afficherQuestionSuivante(pNumeroQuestion) {
 }
 
 function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
-  let toast = document.getElementById("toast");
+  let toast = document.getElementById(pId);
+  let toastTitle = document.getElementById("toast-title");
+  let toastBody = document.getElementById("toast-body");
+  let posOuNeg = pTitre;
 
   let optionsToast = {
     delay: pTemps,
@@ -294,22 +317,36 @@ function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
     autohide: true,
   };
 
-  let toastBody = toast.getElementsByClassName(pElementHTMLContenu)[0];
-  toastBody.firstChild.textContent = pTitre;
-
-  if (boolBonOuNon) {
-    toastBody.lastChild.textContent = "Bonne réponse!";
+  if (posOuNeg == "retroactionPositive") {
+    creerContenuRetroaction(true, toastBody);
+    toastTitle.textContent = "Bravo !";
   } else {
-    toastBody.lastChild.textContent = "Mauvaise réponse!";
+    creerContenuRetroaction(false, toastBody);
+    toastTitle.textContent = "Désolé . . .";
   }
+
+  toastBody.textContent = pElementHTMLContenu;
+
   new bootstrap.Toast(toast, optionsToast).show();
 }
 
 function creerContenuRetroaction(pEstPositive, pContenu) {
-  let toastBody = document.getElementById("toast-body");
-
   if (pEstPositive) {
-    toastBody.textContent = pContenu;
+    pContenu.classList.remove("bg-danger");
+    pContenu.classList.add("bg-success");
+    pContenu.classList.add("bg-opacity-25");
+  } else {
+    pContenu.classList.remove("bg-success");
+    pContenu.classList.add("bg-danger");
+    pContenu.classList.add("bg-opacity-25");
+  }
+}
+
+function afficherRetroaction(pEstPositif, pRetroaction) {
+  if (pEstPositif) {
+    return pRetroaction.retroactionPositive;
+  } else {
+    return pRetroaction.retroactionNegative;
   }
 }
 
