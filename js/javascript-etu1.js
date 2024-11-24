@@ -13,7 +13,7 @@ let btnCreer = document.getElementById("btncreerquestionnaire");
 
 /**
  * Permet de créer le contenu de la rétroaction. Un symbole et une bulle d'information positive ou négative.
- * 
+ *
  * @param {boolean} pEstPositive - Indique si la rétroaction est positive ou négative.
  * @param {HTMLElement} pContenu - Le contenu qui contiendra la rétroaction.
  * @author alexandre-roy
@@ -32,11 +32,11 @@ function creerContenuRetroaction(pEstPositive, pContenu) {
 
 /**
  * Perment de créer les cards pour les modules théoriques.
- * 
+ *
  * @param {number} pNoModule - Le numéro du module.
  * @param {string} pImage - Le nom de l'image.
  * @param {string} pTitre - Le titre du module.
- * @param {string} pDescription - La description du module. 
+ * @param {string} pDescription - La description du module.
  * @author alexandre-roy
  */
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
@@ -76,7 +76,7 @@ function creerCards(pNoModule, pImage, pTitre, pDescription) {
 
 /**
  * Permet de valider le formulaire des filtres.
- * 
+ *
  * @returns {boolean} - Retourne vrai si le formulaire est valide, faux sinon.
  * @autor alexandre-roy
  */
@@ -97,7 +97,7 @@ function validerFormulaireFiltres() {
 
 /**
  * Permet d'afficher les modules selon le filtre appliqué.
- * 
+ *
  * @param {object} pDonnees - Les données des modules.
  * @param {boolean} pEstFiltreApplique - Indique si un filtre est appliqué.
  * @autor alexandre-roy
@@ -135,7 +135,7 @@ function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
 
 /**
  * Permet de créer le questionnaire avec des questions au hasard.
- * 
+ *
  * @param {Event} e - L'événement du bouton pour créer le questionnaire.
  * @autor alexandre-roy
  */
@@ -173,7 +173,7 @@ function creerQuestionnaire(e) {
 
 /**
  * Permet d'afficher la question suivante.
- * 
+ *
  * @param {number} pNumeroQuestion - Le numéro de la question.
  * @autor alexandre-roy
  */
@@ -226,7 +226,7 @@ function afficherQuestionSuivante(pNumeroQuestion) {
 
 /**
  * Permet d'afficher un toast selon les paramètres.
- * 
+ *
  * @param {string} pId - L'identifiant du toast.
  * @param {string} pTitre - Le titre du toast.
  * @param {HTMLElement} pElementHTMLContenu - Le contenu du toast.
@@ -255,11 +255,11 @@ function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
   if (posOuNeg == "retroactionPositive") {
     creerContenuRetroaction(true, toasty);
     check.classList.remove("d-none");
-    toastTitle.textContent = "Bravo !";
+    toastTitle.textContent = "Rétroaction";
   } else if (posOuNeg == "retroactionNegative") {
     creerContenuRetroaction(false, toasty);
     x.classList.remove("d-none");
-    toastTitle.textContent = "Désolé . . .";
+    toastTitle.textContent = "Rétroaction";
   } else {
     toastTitle.textContent = pTitre;
   }
@@ -271,7 +271,7 @@ function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
 
 /**
  * Permet de valider la réponse de l'utilisateur.
- * 
+ *
  * @autor alexandre-roy
  */
 function validerReponse() {
@@ -282,7 +282,6 @@ function validerReponse() {
   questionSuivanteBtn.textContent = "QUESTION SUIVANTE";
   questionnaire.classList.remove("d-none");
 
-  
   let noQuestion = 0;
   let nbIterations = 0;
   let nbIterationsRepondu = 0;
@@ -291,7 +290,6 @@ function validerReponse() {
 
   if (index == nbQuestions) {
     questionSuivanteBtn.textContent = "TERMINER LE TEST";
-    creerPoppover();
   }
 
   afficherQuestionSuivante(0);
@@ -311,7 +309,7 @@ function validerReponse() {
     if (!repondu) {
       afficherToast(
         "toast",
-        "Oops!",
+        "Avertissement",
         "Vous devez répondre à la question.",
         5000
       );
@@ -323,17 +321,16 @@ function validerReponse() {
     checkReponse(nbIterations, bonneReponse, noQuestion);
     noQuestion++;
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
-      questionSuivanteBtn.disabled = true;
+      creerPoppover();
+      questionSuivanteBtn.disabled = true;     
       terminerQuestionnaire();
+      console.log(questionsPourQuestionnaire);
       console.log("Score: " + score);
     } else {
       afficherQuestionSuivante(index);
       index++;
       if (index == nbQuestions) {
-        questionSuivanteBtn.textContent = "TERMINER LE TEST";
-        if (repondu) {
-          creerPoppover();
-        }
+        questionSuivanteBtn.textContent = "TERMINER LE TEST";        
       }
     }
   });
@@ -341,7 +338,7 @@ function validerReponse() {
 
 /**
  * Permet d'afficher la rétroaction selon si la réponse est positive ou négative.
- * 
+ *
  * @param {boolean} pEstPositif - Indique si la rétroaction est positive ou négative.
  * @param {HTMLElement} pRetroaction - La rétroaction à afficher.
  * @returns {HTMLElement} - Retourne la rétroaction à afficher.
@@ -357,7 +354,7 @@ function afficherRetroaction(pEstPositif, pRetroaction) {
 
 /**
  * Permet d'afficher le offcanvas quand le questionnaire est terminé.
- * 
+ *
  * @autor alexandre-roy
  */
 function terminerQuestionnaire() {
@@ -368,7 +365,7 @@ function terminerQuestionnaire() {
 
 /**
  * Permet d'afficher les modules théoriques en tant que cards.
- * 
+ *
  * @autor alexandre-roy
  */
 function afficherModules() {
@@ -390,7 +387,7 @@ function afficherModules() {
 
 /**
  * Permet de vérifier si la réponse de l'utilisateur est bonne ou non et de donner un score.
- * 
+ *
  * @param {number} pNbIterations - Le nombre d'itérations qui équivaut au nombre de réponses.
  * @param {objet} pBonneReponses - Les bonnes réponses.
  * @param {number} pNoQuestion - Le numéro de la question.
@@ -405,6 +402,7 @@ function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
       mesReponses.push(i);
     }
   }
+  questionsPourQuestionnaire[pNoQuestion].repUtilisateur = mesReponses;
 
   let boolBonneReponse;
 
@@ -439,7 +437,7 @@ function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
 
 /**
  * Permet d'initialiser le contenu de la page.
- * 
+ *
  * @autor alexandre-roy
  */
 function initialisation() {

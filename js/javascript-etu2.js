@@ -17,7 +17,8 @@ export function creerPoppover() {
 
     let boutonPoppover = document.getElementById("boutonAssocie");
 
-    new bootstrap.Popover(boutonPoppover, popover);
+    let popoverFin = new bootstrap.Popover(boutonPoppover, popover);
+    popoverFin.show();
 }
 
 function calculerScore(pNbPoint, PTotalPoint) {

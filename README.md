@@ -15,6 +15,8 @@
 * Section Modules théoriques en html
 * Section Création du questionnaire  en html
 * Section Questionnaire en html
+* Réactivité du site
+* Accessibilité du site
 * Fonction creerCards
 * Fonction afficherModules
 * Fonction afficherModulesSelonFiltre
@@ -25,7 +27,8 @@
 * Fonction afficherQuestionSuivante
 * Fonction afficherToast
 * Fonction creerContenuRetroaction
-* ...
+* Fonction checkReponse
+* Fonction afficherRetroaction
 ## Étudiant 2 - Emmanuel Xudous
 * Tâche ou fonction 1
 * Tâche ou fonction 2
