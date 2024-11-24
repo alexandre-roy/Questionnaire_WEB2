@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <header>
+  <header id="top">
     <nav class="bg-light">
       <div class="container d-flex justify-content-between">
         <a class="navbar-brand" href="#">
@@ -191,7 +191,7 @@
               </button>
               <h3 class="d-none" id="entetePopover">Fin du questionnaire</h3>
               <div id="contenuPopover" class="d-none">
-                <p>Pour consulter vos réponses, cliquez « <a href="#btnmesreponses" class="link-underline link-underline-opacity-0">MES RÉPONSES</a> » dans l'entête de cette page</p>
+                <p>Pour consulter vos réponses, cliquez « <a href="#top" class="link-underline link-underline-opacity-0">MES RÉPONSES</a> » dans l'entête de cette page</p>
               </div>
             </div>
           </form>
@@ -217,14 +217,12 @@
       <h3 class="offcanvas-title">Mes réponses</h3>
     </div>
     <div class="offcanvas-body">
-      <div>
-        <p>RÉPONSES</p>
+      
+      <div id="pElementBodyOffCanva">
+        
       </div>
       <div class="d-flex justify-content-center">
-        <div class="border-top border-2 border-dark my-4 w-75"></div>
-      </div>
-      <div id="pElementBodyOffCanva" class="">
-        
+        <div class="border-top border-2 border-dark mp-2 mb-4 w-75"></div>
       </div>
       <div>
         <form method="get">
@@ -250,7 +248,10 @@
         <strong id="toast-title" class="fs-3 me-auto"></strong>
         <button type="button" class="btn-close me-2" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
+      <div id="toasty" class="d-flex">
+        <i class="bi bi-check-circle fs-3 d-none ps-2 pt-2" id="check"></i><i class="bi bi-x-circle fs-3 d-none ps-2 pt-2" id="x"></i>
       <div class="toast-body" id="toast-body"></div>
+      </div>    
     </div>
   </div>
 

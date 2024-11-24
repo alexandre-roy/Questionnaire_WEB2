@@ -1,18 +1,44 @@
-/**
- *  Fichier principal javascript
- */
+/* Fichier javascript pour l'étudiant 1 (Alexandre Roy) */
+
 /*global bootstrap*/
 /*global DATA_QUIZ*/
 
-import { creerPoppover, remplirOffCanvas  } from "./javascript-etu2.js";
+import { creerPoppover, remplirOffCanvas } from "./javascript-etu2.js";
 
 export let questionsPourQuestionnaire = [];
-let nbQuestions;
+let nbQuestions = 0;
+let score = 0;
 let noModuleSelectionne = 6;
 let btnCreer = document.getElementById("btncreerquestionnaire");
-let boolBonOuNon;
-let score = 0;
 
+/**
+ * Permet de créer le contenu de la rétroaction. Un symbole et une bulle d'information positive ou négative.
+ * 
+ * @param {boolean} pEstPositive - Indique si la rétroaction est positive ou négative.
+ * @param {HTMLElement} pContenu - Le contenu qui contiendra la rétroaction.
+ * @author alexandre-roy
+ */
+function creerContenuRetroaction(pEstPositive, pContenu) {
+  if (pEstPositive) {
+    pContenu.classList.remove("bg-danger");
+    pContenu.classList.add("bg-success");
+    pContenu.classList.add("bg-opacity-25");
+  } else {
+    pContenu.classList.remove("bg-success");
+    pContenu.classList.add("bg-danger");
+    pContenu.classList.add("bg-opacity-25");
+  }
+}
+
+/**
+ * Perment de créer les cards pour les modules théoriques.
+ * 
+ * @param {number} pNoModule - Le numéro du module.
+ * @param {string} pImage - Le nom de l'image.
+ * @param {string} pTitre - Le titre du module.
+ * @param {string} pDescription - La description du module. 
+ * @author alexandre-roy
+ */
 function creerCards(pNoModule, pImage, pTitre, pDescription) {
   let rowDiv = document.getElementById("modules-theoriques");
   rowDiv.className = "row";
@@ -48,6 +74,12 @@ function creerCards(pNoModule, pImage, pTitre, pDescription) {
   cardBody.appendChild(cardText);
 }
 
+/**
+ * Permet de valider le formulaire des filtres.
+ * 
+ * @returns {boolean} - Retourne vrai si le formulaire est valide, faux sinon.
+ * @autor alexandre-roy
+ */
 function validerFormulaireFiltres() {
   let msgErreur = document.getElementById("msg-filtres");
   let noModule = document.getElementById("filtresSelect").value;
@@ -63,6 +95,13 @@ function validerFormulaireFiltres() {
   }
 }
 
+/**
+ * Permet d'afficher les modules selon le filtre appliqué.
+ * 
+ * @param {object} pDonnees - Les données des modules.
+ * @param {boolean} pEstFiltreApplique - Indique si un filtre est appliqué.
+ * @autor alexandre-roy
+ */
 function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
   let cards = document.getElementById("modules-theoriques");
   let msgErreur = document.getElementById("msg-filtres");
@@ -94,23 +133,12 @@ function afficherModulesSelonFiltre(pDonnees, pEstFiltreApplique) {
   }
 }
 
-function afficherModules() {
-  let btnFiltrer = document.getElementById("btnfiltrer");
-  let btnAfficherTout = document.getElementById("btnaffichertout");
-
-  afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
-
-  btnFiltrer.addEventListener("click", function () {
-    noModuleSelectionne = document.getElementById("filtresSelect").value;
-    afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
-  });
-
-  btnAfficherTout.addEventListener("click", function () {
-    noModuleSelectionne = 6;
-    afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
-  });
-}
-
+/**
+ * Permet de créer le questionnaire avec des questions au hasard.
+ * 
+ * @param {Event} e - L'événement du bouton pour créer le questionnaire.
+ * @autor alexandre-roy
+ */
 function creerQuestionnaire(e) {
   e.preventDefault();
 
@@ -140,122 +168,15 @@ function creerQuestionnaire(e) {
     questionsPourQuestionnaire.push(selectedQuestion);
   }
 
-  for (let i = 0; i < questionsPourQuestionnaire.length; i++) {
-    console.log(
-      questionsPourQuestionnaire[i].titre +
-        " | " +
-        questionsPourQuestionnaire[i].modulesId
-    );
-  }
-
   validerReponse(questionsPourQuestionnaire);
 }
 
-function validerReponse() {
-  let questionSuivanteBtn = document.getElementById("boutonAssocie");
-  let questionnaire = document.getElementById("questionnaire");
-  questionSuivanteBtn.disabled = false;
-
-  questionSuivanteBtn.textContent = "QUESTION SUIVANTE";
-  questionnaire.classList.remove("d-none");
-
-  let index = 1;
-  let noQuestion = 0;
-  let nbIterations = 0;
-  let bonneReponse = [];
-
-  console.log(questionsPourQuestionnaire[index - 1].reponses);
-
-  if (index == nbQuestions) {
-    questionSuivanteBtn.textContent = "TERMINER LE TEST";
-    creerPoppover();
-  }
-
-  afficherQuestionSuivante(0);
-
-  questionSuivanteBtn.addEventListener("click", function () {
-    nbIterations = questionsPourQuestionnaire[index - 1].choixReponses.length;
-    bonneReponse = questionsPourQuestionnaire[index - 1].reponses;
-    checkReponse(nbIterations, bonneReponse, noQuestion);
-    noQuestion++;
-    if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
-      console.log(questionsPourQuestionnaire[index - 1].reponses);
-      questionSuivanteBtn.disabled = true;
-      console.log(questionsPourQuestionnaire);
-      terminerQuestionnaire();
-      console.log("Score: " + score);
-    } else {
-      afficherQuestionSuivante(index);
-      index++;
-      console.log(questionsPourQuestionnaire[index - 1].reponses);
-      if (index == nbQuestions) {
-        questionSuivanteBtn.textContent = "TERMINER LE TEST";
-        creerPoppover();
-      }
-    }
-  });
-}
-
-function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
-  let mesReponses = [];
-  let repondu = false;
-
-  for (let i = 0; i < pNbIterations; i++) {
-    let option = document.getElementById(`reponse${i}`);
-    if (option.checked) {
-      mesReponses.push(i);
-      repondu = true;
-    }
-  }
-
-  if (!repondu) {
-    afficherToast(
-      "toast",
-      "Erreur",
-      "Vous devez sélectionner une réponse.",
-      5000
-    );
-    return;
-  }
-
-  let boolBonneReponse;
-
-  for (let i = 0; i < pBonneReponses.length; i++) {
-    if (mesReponses[i] != pBonneReponses[i]) {
-      boolBonneReponse = false;
-      questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
-      let contenu = afficherRetroaction(
-        false,
-        questionsPourQuestionnaire[pNoQuestion]
-      );
-      afficherToast("toast", "retroactionNegative", contenu, 5000);
-      break;
-    }
-  }
-
-  if (boolBonneReponse != false) {
-    for (let i = 0; i < pBonneReponses.length; i++) {
-      if (mesReponses[i] == pBonneReponses[i]) {
-        boolBonneReponse = true;
-        score++;
-        questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
-        let contenu = afficherRetroaction(
-          true,
-          questionsPourQuestionnaire[pNoQuestion]
-        );
-        afficherToast("toast", "retroactionPositive", contenu, 5000);
-      }
-    }
-  }
-  boolBonOuNon = boolBonneReponse;
-}
-
-function terminerQuestionnaire() {
-  let btnMesReponses = document.getElementById("btnmesreponses");
-  btnMesReponses.disabled = false;
-  remplirOffCanvas();
-}
-
+/**
+ * Permet d'afficher la question suivante.
+ * 
+ * @param {number} pNumeroQuestion - Le numéro de la question.
+ * @autor alexandre-roy
+ */
 function afficherQuestionSuivante(pNumeroQuestion) {
   let titreQuestion = document.getElementById("titrequestion");
   let choixReponses = document.getElementById("choixreponses");
@@ -303,11 +224,27 @@ function afficherQuestionSuivante(pNumeroQuestion) {
   }
 }
 
+/**
+ * Permet d'afficher un toast selon les paramètres.
+ * 
+ * @param {string} pId - L'identifiant du toast.
+ * @param {string} pTitre - Le titre du toast.
+ * @param {HTMLElement} pElementHTMLContenu - Le contenu du toast.
+ * @param {number} pTemps - Le temps d'affichage du toast.
+ * @autor alexandre-roy
+ */
 function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
   let toast = document.getElementById(pId);
   let toastTitle = document.getElementById("toast-title");
+  let toasty = document.getElementById("toasty");
   let toastBody = document.getElementById("toast-body");
   let posOuNeg = pTitre;
+  let check = document.getElementById("check");
+  let x = document.getElementById("x");
+  toasty.classList.remove("bg-success");
+  toasty.classList.remove("bg-danger");
+  check.classList.add("d-none");
+  x.classList.add("d-none");
 
   let optionsToast = {
     delay: pTemps,
@@ -316,11 +253,15 @@ function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
   };
 
   if (posOuNeg == "retroactionPositive") {
-    creerContenuRetroaction(true, toastBody);
+    creerContenuRetroaction(true, toasty);
+    check.classList.remove("d-none");
     toastTitle.textContent = "Bravo !";
-  } else {
-    creerContenuRetroaction(false, toastBody);
+  } else if (posOuNeg == "retroactionNegative") {
+    creerContenuRetroaction(false, toasty);
+    x.classList.remove("d-none");
     toastTitle.textContent = "Désolé . . .";
+  } else {
+    toastTitle.textContent = pTitre;
   }
 
   toastBody.textContent = pElementHTMLContenu;
@@ -328,18 +269,84 @@ function afficherToast(pId, pTitre, pElementHTMLContenu, pTemps) {
   new bootstrap.Toast(toast, optionsToast).show();
 }
 
-function creerContenuRetroaction(pEstPositive, pContenu) {
-  if (pEstPositive) {
-    pContenu.classList.remove("bg-danger");
-    pContenu.classList.add("bg-success");
-    pContenu.classList.add("bg-opacity-25");
-  } else {
-    pContenu.classList.remove("bg-success");
-    pContenu.classList.add("bg-danger");
-    pContenu.classList.add("bg-opacity-25");
+/**
+ * Permet de valider la réponse de l'utilisateur.
+ * 
+ * @autor alexandre-roy
+ */
+function validerReponse() {
+  let questionSuivanteBtn = document.getElementById("boutonAssocie");
+  let questionnaire = document.getElementById("questionnaire");
+  questionSuivanteBtn.disabled = false;
+
+  questionSuivanteBtn.textContent = "QUESTION SUIVANTE";
+  questionnaire.classList.remove("d-none");
+
+  
+  let noQuestion = 0;
+  let nbIterations = 0;
+  let nbIterationsRepondu = 0;
+  let bonneReponse = [];
+  let index = 1;
+
+  if (index == nbQuestions) {
+    questionSuivanteBtn.textContent = "TERMINER LE TEST";
+    creerPoppover();
   }
+
+  afficherQuestionSuivante(0);
+
+  questionSuivanteBtn.addEventListener("click", function () {
+    let repondu = false;
+    nbIterationsRepondu =
+      questionsPourQuestionnaire[index - 1].choixReponses.length;
+
+    for (let i = 0; i < nbIterationsRepondu; i++) {
+      let option = document.getElementById(`reponse${i}`);
+      if (option.checked) {
+        repondu = true;
+      }
+    }
+
+    if (!repondu) {
+      afficherToast(
+        "toast",
+        "Oops!",
+        "Vous devez répondre à la question.",
+        5000
+      );
+      return;
+    }
+
+    nbIterations = questionsPourQuestionnaire[index - 1].choixReponses.length;
+    bonneReponse = questionsPourQuestionnaire[index - 1].reponses;
+    checkReponse(nbIterations, bonneReponse, noQuestion);
+    noQuestion++;
+    if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
+      questionSuivanteBtn.disabled = true;
+      terminerQuestionnaire();
+      console.log("Score: " + score);
+    } else {
+      afficherQuestionSuivante(index);
+      index++;
+      if (index == nbQuestions) {
+        questionSuivanteBtn.textContent = "TERMINER LE TEST";
+        if (repondu) {
+          creerPoppover();
+        }
+      }
+    }
+  });
 }
 
+/**
+ * Permet d'afficher la rétroaction selon si la réponse est positive ou négative.
+ * 
+ * @param {boolean} pEstPositif - Indique si la rétroaction est positive ou négative.
+ * @param {HTMLElement} pRetroaction - La rétroaction à afficher.
+ * @returns {HTMLElement} - Retourne la rétroaction à afficher.
+ * @autor alexandre-roy
+ */
 function afficherRetroaction(pEstPositif, pRetroaction) {
   if (pEstPositif) {
     return pRetroaction.retroactionPositive;
@@ -348,12 +355,93 @@ function afficherRetroaction(pEstPositif, pRetroaction) {
   }
 }
 
-/*************
-    Cette fonction est rattachée à l'événement "Load". 
-    C'est la première fonction qui va s'executer lorsque 
-    la page sera entièrement chargée.
-**************/
+/**
+ * Permet d'afficher le offcanvas quand le questionnaire est terminé.
+ * 
+ * @autor alexandre-roy
+ */
+function terminerQuestionnaire() {
+  let btnMesReponses = document.getElementById("btnmesreponses");
+  btnMesReponses.disabled = false;
+  remplirOffCanvas();
+}
 
+/**
+ * Permet d'afficher les modules théoriques en tant que cards.
+ * 
+ * @autor alexandre-roy
+ */
+function afficherModules() {
+  let btnFiltrer = document.getElementById("btnfiltrer");
+  let btnAfficherTout = document.getElementById("btnaffichertout");
+
+  afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
+
+  btnFiltrer.addEventListener("click", function () {
+    noModuleSelectionne = document.getElementById("filtresSelect").value;
+    afficherModulesSelonFiltre(DATA_QUIZ.modules, true);
+  });
+
+  btnAfficherTout.addEventListener("click", function () {
+    noModuleSelectionne = 6;
+    afficherModulesSelonFiltre(DATA_QUIZ.modules, false);
+  });
+}
+
+/**
+ * Permet de vérifier si la réponse de l'utilisateur est bonne ou non et de donner un score.
+ * 
+ * @param {number} pNbIterations - Le nombre d'itérations qui équivaut au nombre de réponses.
+ * @param {objet} pBonneReponses - Les bonnes réponses.
+ * @param {number} pNoQuestion - Le numéro de la question.
+ * @autor alexandre-roy
+ */
+function checkReponse(pNbIterations, pBonneReponses, pNoQuestion) {
+  let mesReponses = [];
+
+  for (let i = 0; i < pNbIterations; i++) {
+    let option = document.getElementById(`reponse${i}`);
+    if (option.checked) {
+      mesReponses.push(i);
+    }
+  }
+
+  let boolBonneReponse;
+
+  for (let i = 0; i < pBonneReponses.length; i++) {
+    if (mesReponses[i] != pBonneReponses[i]) {
+      boolBonneReponse = false;
+      questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
+      let contenu = afficherRetroaction(
+        false,
+        questionsPourQuestionnaire[pNoQuestion]
+      );
+      afficherToast("toast", "retroactionNegative", contenu, 5000);
+      break;
+    }
+  }
+
+  if (boolBonneReponse != false) {
+    for (let i = 0; i < pBonneReponses.length; i++) {
+      if (mesReponses[i] == pBonneReponses[i]) {
+        boolBonneReponse = true;
+        score++;
+        questionsPourQuestionnaire[pNoQuestion].maReponse = boolBonneReponse;
+        let contenu = afficherRetroaction(
+          true,
+          questionsPourQuestionnaire[pNoQuestion]
+        );
+        afficherToast("toast", "retroactionPositive", contenu, 5000);
+      }
+    }
+  }
+}
+
+/**
+ * Permet d'initialiser le contenu de la page.
+ * 
+ * @autor alexandre-roy
+ */
 function initialisation() {
   let creer = document.getElementById("formCreer");
   creer.addEventListener("submit", creerQuestionnaire);

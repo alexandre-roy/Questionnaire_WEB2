@@ -1,6 +1,5 @@
-/**
- *  Fichier principal javascript
- */
+/* Fichier javascript pour l'étudiant 2 (Emmanuel Xudous) */
+
 /*global bootstrap*/
 /*global DATA_QUIZ*/
 
