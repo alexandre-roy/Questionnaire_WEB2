@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon" href="favicon.ico" />
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="favicon.ico">
     <title>WEB2 | Questionnaire</title>
   </head>
 
   <body>
-    <a class="visually-hidden" href="#filtres">Passer au filtres</a>
-    <a class="visually-hidden" href="#creation-questionnaire"
+    <a class="visually-hidden text-dark" href="#filtres">Passer au filtres</a>
+    <a class="visually-hidden text-dark" href="#creation-questionnaire"
       >Passer à la création du questionnaire.
     </a>
-    <a class="visually-hidden" href="#main">Passer au contenu principal</a>
+    <a class="visually-hidden text-dark" href="#main"
+      >Passer au contenu principal</a
+    >
     <header id="top">
       <nav class="bg-light">
         <div class="container d-flex justify-content-between">
           <a class="navbar-brand" href="#">
             <img
               src="images/Logo-05B-dev-web-client.png"
-              alt="Logo"
+              alt="Logo du site"
               width="125"
-            />
+            >
           </a>
           <p class="visually-hidden" id="descriptionoffcanvas">
             Bouton pour consulter ses réponses
@@ -43,23 +45,23 @@
     </header>
 
     <main class="bg-body" id="main">
-      <section id="hero" class="position-relative">
+      <div id="hero" class="position-relative">
         <p
           class="position-absolute bottom-0 bg-body bg-opacity-75 p-2 m-5 rounded border border-4 border-dark fs-1"
         >
           <strong>05B | DÉVELOPPEMENT WEB COTÉ CLIENT</strong>
         </p>
-        <img src="images/hero.jpg" alt="hero" width="100%" />
-      </section>
+        <img src="images/hero.jpg" alt="hero" class="w-100" >
+      </div>
 
       <h1 class="container my-4"><strong>Questionnaire formatif</strong></h1>
       <section id="filtres" class="container my-3 px-3">
         <div class="accordion">
           <div class="accordion-item">
-            <h2 class="accordion-header">
-              <p class="visually-hidden" id="descriptionfiltres">
-                Bouton pour afficher l'accordéon des filtres
-              </p>
+            <p class="visually-hidden" id="descriptionfiltres">
+              Bouton pour afficher l'accordéon des filtres
+            </p>
+            <h2 class="accordion-header">           
               <button
                 class="accordion-button fs-2 collapsed"
                 type="button"
@@ -84,8 +86,6 @@
                 </p>
                 <form
                   method="post"
-                  novalidate
-                  action=""
                   aria-describedby="descriptionaccordeon"
                 >
                   <div class="row gap-3">
@@ -99,7 +99,7 @@
                         name="txtdescription"
                         id="txtdescription"
                         placeholder="Veuillez saisir un mot-clé"
-                      />
+                      >
                     </div>
 
                     <div class="col row">
@@ -111,7 +111,7 @@
                             type="checkbox"
                             value="chkhtml"
                             id="chkhtml"
-                          />
+                          >
                           <label class="form-check-label" for="chkhtml">
                             HTML
                           </label>
@@ -122,7 +122,7 @@
                             type="checkbox"
                             value="chkcss"
                             id="chkcss"
-                          />
+                          >
                           <label class="form-check-label" for="chkcss">
                             CSS
                           </label>
@@ -133,7 +133,7 @@
                             type="checkbox"
                             value="chkbootstrap"
                             id="chkbootstrap"
-                          />
+                          >
                           <label class="form-check-label" for="chkbootstrap">
                             Bootstrap
                           </label>
@@ -146,7 +146,7 @@
                             type="checkbox"
                             value="chkjavascript"
                             id="chkjavascript"
-                          />
+                          >
                           <label class="form-check-label" for="chkjavascript">
                             Javascript
                           </label>
@@ -157,7 +157,7 @@
                             type="checkbox"
                             value="chkformulaires"
                             id="chkformulaires"
-                          />
+                          >
                           <label class="form-check-label" for="chkformulaires">
                             Formulaires
                           </label>
@@ -168,7 +168,7 @@
                             type="checkbox"
                             value="chkaccessibilite"
                             id="chkaccessibilite"
-                          />
+                          >
                           <label
                             class="form-check-label"
                             for="chkaccessibilite"
@@ -182,9 +182,9 @@
 
                   <div class="row">
                     <div class="mb-3 col">
-                      <p for="module" class="fs-4 my-2">
+                      <label for="filtresSelect" class="fs-4 my-2">
                         <strong>Choix du module</strong>
-                      </p>
+                      </label>
                       <select class="form-select" id="filtresSelect">
                         <option value="-1" selected>
                           Veuillez sélectionner un module
@@ -243,9 +243,9 @@
         </div>
       </section>
 
-      <section class="container my-3">
+      <div class="container my-3">
         <div id="modules-theoriques"></div>
-      </section>
+      </div>
 
       <section
         id="creation-questionnaire"
@@ -259,14 +259,14 @@
                 ><strong>Nombre de questions:</strong></label
               >
               <input
-                class="form-control w-25 mb-4"
+                class="form-control w-25 mb-4 border border-2 border-dark"
                 type="number"
                 name="nbquestions"
                 id="nbquestions"
                 min="1"
                 max="5"
                 value="1"
-              />
+              >
             </div>
             <div class="mb-4">
               <p>
@@ -301,41 +301,46 @@
           id="questionnaire"
         >
           <div class="card px-4 py-3 bg-light bg-opacity-25 w-75 flexy">
-            <form method="get">
-              <h2 class="text-center fs-3" id="noquestion">
-                Numero de la question
-              </h2>
-              <p id="titrequestion" class="fs-5 my-3"></p>
-              <div id="choixreponses"></div>
-              <div class="row">
-                <div class="col-xl-9 col-md-8 col-sm-7 col-xs-7 col-4"></div>
-                <p class="visually-hidden" id="descriptionquestionsuivante">
-                  Bouton pour afficher la question suivante ou terminer le test
-                </p>
-                <button
-                  type="button"
-                  id="boutonAssocie"
-                  data-bs-toggle="popover"
-                  data-bs-trigger="click"
-                  data-bs-placement="top"
-                  class="btn btn-primary text-info py-1 col-xl-3 col-md-4 col-sm-5 col-xs-5 col-8"
-                  aria-labelledby="descriptionquestionsuivante"
-                >
-                  QUESTION SUIVANTE
-                </button>
-                <h3 class="d-none" id="entetePopover">Fin du questionnaire</h3>
-                <div id="contenuPopover" class="d-none">
-                  <p>
-                    Pour consulter vos réponses, cliquez «
-                    <a
-                      href="#top"
-                      class="link-underline link-underline-opacity-0"
-                      >MES RÉPONSES</a
-                    >
-                    » dans l'entête de cette page
+            <form>
+              <fieldset>
+                <legend class="visually-hidden">Questionnaire</legend>
+                <h2 class="text-center fs-3" id="noquestion">No. de la question.</h2>
+                <p id="titrequestion" class="fs-5 my-3"></p>
+                <div id="choixreponses"></div>
+                <div class="row">
+                  <div class="col-xl-9 col-md-8 col-sm-7 col-xs-7 col-4"></div>
+                  <p class="visually-hidden" id="descriptionquestionsuivante">
+                    Bouton pour afficher la question suivante ou terminer le
+                    test
                   </p>
+                  <button
+                    type="submit"
+                    id="boutonAssocie"
+                    data-bs-toggle="popover"
+                    data-bs-trigger="click"
+                    data-bs-placement="top"
+                    class="btn btn-primary text-info py-1 col-xl-3 col-md-4 col-sm-5 col-xs-5 col-8"
+                    aria-labelledby="descriptionquestionsuivante"
+                  >
+                    QUESTION SUIVANTE
+                  </button>
+                  <h3 class="d-none" id="entetePopover">
+                    Fin du questionnaire
+                  </h3>
+                  <div id="contenuPopover" class="d-none">
+                    <p>
+                      Pour consulter vos réponses, cliquez «<strong>
+                        <a
+                          href="#top"
+                          class="link-underline link-underline-opacity-0"
+                          >MES RÉPONSES</a
+                        >
+                      </strong>
+                      » dans l'entête de cette page
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </fieldset>
             </form>
           </div>
         </div>
@@ -368,17 +373,17 @@
             <h4>Envoyer mes resultats</h4>
             <div class="my-2" id="divNom">
               <label for="nom">Nom:</label>
-              <input type="text" name="nom" id="nom" class="form-control" />
+              <input type="text" name="nom" id="nom" class="form-control">
             </div>
             <div class="my-2">
               <label for="courriel">Courriel:</label>
               <input
-                type="string"
+                type="text"
                 name="courriel"
                 id="courriel"
                 required
                 class="form-control"
-              />
+              >
             </div>
             <button
               type="submit"
@@ -408,7 +413,7 @@
             src="images/Logo-05B-dev-web-client.png"
             alt="logo"
             class="w-25 rounded me-3"
-          />
+          >
           <strong id="toast-title" class="fs-3 me-auto"></strong>
           <button
             type="button"

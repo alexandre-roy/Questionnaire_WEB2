@@ -58,7 +58,7 @@ function creerCards(pNoModule, pImage, pTitre, pDescription) {
   cardBody.className =
     "card-body card-size d-flex justify-content-center flex-column";
 
-  let cardTitle = document.createElement("h5");
+  let cardTitle = document.createElement("h4");
   cardTitle.className = "card-title text-center";
   cardTitle.textContent = pTitre;
 
@@ -161,7 +161,7 @@ function creerQuestionnaire(e) {
   if (nbQuestions > questionsPourModule.length) {
     nbQuestions = questionsPourModule.length;
   }
-
+  
   while (questionsPourQuestionnaire.length < nbQuestions) {
     let hasard = Math.floor(Math.random() * questionsPourModule.length);
     let selectedQuestion = questionsPourModule.splice(hasard, 1)[0];
@@ -205,7 +205,7 @@ function afficherQuestionSuivante(pNumeroQuestion) {
       } else {
         input.type = "checkbox";
       }
-      input.className = "form-check-input";
+      input.className = "form-check-input border border-2 border-dark";
       input.name = "reponse";
       input.id = `reponse${i}`;
       input.value =
@@ -322,7 +322,7 @@ function validerReponse() {
     noQuestion++;
     if (questionSuivanteBtn.textContent == "TERMINER LE TEST") {
       creerPoppover();
-      questionSuivanteBtn.disabled = true;     
+      questionSuivanteBtn.disabled = true;
       terminerQuestionnaire();
       console.log(questionsPourQuestionnaire);
       console.log("Score: " + score);
@@ -330,7 +330,7 @@ function validerReponse() {
       afficherQuestionSuivante(index);
       index++;
       if (index == nbQuestions) {
-        questionSuivanteBtn.textContent = "TERMINER LE TEST";        
+        questionSuivanteBtn.textContent = "TERMINER LE TEST";
       }
     }
   });

@@ -1,5 +1,5 @@
 /*** VARIABLES SCSS ***/
-$primary: #58837A; 
+$primary: #50776F; 
 $secondary: #C2393C;
 $body-bg: #F5F5F5;
 $info: #F5F5F5;
@@ -21,4 +21,8 @@ $font-family-base: "Inter";
     .flexy{
         flex: 2;
     }
+}
+
+html {
+    overflow-x: hidden;
 }
