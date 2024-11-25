@@ -275,10 +275,10 @@ export function telechargerReponses() {
 
     let offCanvasHTML = document.getElementById("pElementBodyOffCanva").outerHTML;
 
-    var fichier = new File(["\ufeff"+offCanvasHTML], 'MesReponses.html', {type: "text/plain:charset=UTF-8"});
+    let fichier = new File(["\ufeff"+offCanvasHTML], 'MesReponses.html', {type: "text/plain:charset=UTF-8"});
 
-    var url = window.URL.createObjectURL(fichier);
-    var a = document.createElement("a");
+    let url = window.URL.createObjectURL(fichier);
+    let a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
     a.download = 'MesReponses.html';
