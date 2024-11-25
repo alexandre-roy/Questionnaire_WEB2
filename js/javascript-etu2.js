@@ -27,8 +27,6 @@ function calculerScore(pNbPoint, PTotalPoint) {
 
 function creerHTMLMesReponses() {
 
-    let textFinal = document.createElement("p");
-    textFinal.className = "d-none";
     let offCanvas = document.getElementById("pElementBodyOffCanva");
 
     let pNbPoint = 0;
@@ -130,9 +128,6 @@ function creerHTMLMesReponses() {
             div.appendChild(divBody);
             divs.appendChild(pBoiteTexte);
         }
-
-        textFinal.textContent += `${strong.textContent} ${pQuestion.textContent} ${pSReponse.textContent} ${pPointage.textContent} ${pBoiteTexte.textContent}`;
-
         offCanvas.appendChild(div);
     });
 
@@ -169,10 +164,7 @@ function creerHTMLMesReponses() {
     divFooter.appendChild(Score);
     divFooter.appendChild(tPourcentage);
     divFooter.appendChild(pPourcentage);
-    
     offCanvas.appendChild(divFooter);
-    
-    textFinal.textContent += ` ${tScore.textContent} ${pScore.textContent} ${pTScore.textContent} ${Score.textContent} ${tPourcentage.textContent} ${pPourcentage.textContent}`;
 }
 
 export function remplirOffCanvas() {
@@ -191,7 +183,7 @@ function creerFormulaireEnvoieReponses() {
 
         if (validerFormulaireEnvoiReponses(nom, courriel)) {
 
-            let mailtoLink = `mailto:${courriel}?subject=Quiz%20web2&body=${textFinal.textContent}`;
+            let mailtoLink = `mailto:${courriel.value}?subject=Quiz%20web2&body=${document.getElementById("pElementBodyOffCanva").textContent}`;
 
             window.location.href = mailtoLink;
         }
@@ -230,13 +222,36 @@ function validerFormulaireEnvoiReponses(nom, courriel) {
         nom.classList.remove("is-valid");
     }
 
+    let courielvalid= false;
     let regexCourriel = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (regexCourriel.test(courriel.value)) {
         courriel.classList.add("is-valid");
         courriel.classList.remove("is-invalid");
+        courielvalid = true;
     } else {
         courriel.classList.add("is-invalid");
         courriel.classList.remove("is-valid");
     }
-    return nomValid && regexCourriel;
+    console.log(nomValid && courielvalid);
+    return nomValid && courielvalid;
 }
+
+export function telechargerReponses() {
+
+    let offCanvasHTML = document.getElementById("pElementBodyOffCanva").outerHTML;
+
+    var fichier = new File(["\ufeff"+offCanvasHTML], 'MesReponses.html', {type: "text/plain:charset=UTF-8"});
+
+    var url = window.URL.createObjectURL(fichier);
+    var a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = 'MesReponses.html';
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(url);
+}
+

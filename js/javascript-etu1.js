@@ -3,7 +3,9 @@
 /*global bootstrap*/
 /*global DATA_QUIZ*/
 
-import { creerPoppover, remplirOffCanvas } from "./javascript-etu2.js";
+import { creerPoppover, remplirOffCanvas, telechargerReponses } from "./javascript-etu2.js";
+
+window.telechargerReponses = telechargerReponses;
 
 export let questionsPourQuestionnaire = [];
 let nbQuestions = 0;
