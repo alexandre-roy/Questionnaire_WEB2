@@ -152,12 +152,7 @@ function creerHTMLMesReponses() {
     let divFooter = document.createElement("div");
 
     let tScore = document.createElement("h2");
-    tScore.textContent = "Votre score";
-    let pScore = document.createElement("p");
-    pScore.textContent = "Voici le total de vos points :";
-    
-    let pTScore = document.createElement("h3");
-    pTScore.textContent = "Bonne(s) réponse(s):";
+    tScore.textContent = "Votre score :";
     
     let Score = document.createElement("p");
     Score.textContent = `${pNbPoint} / ${pTotalPoint}`;
@@ -177,8 +172,6 @@ function creerHTMLMesReponses() {
     }
     
     divFooter.appendChild(tScore);
-    divFooter.appendChild(pScore);
-    divFooter.appendChild(pTScore);
     divFooter.appendChild(Score);
     divFooter.appendChild(tPourcentage);
     divFooter.appendChild(pPourcentage);
