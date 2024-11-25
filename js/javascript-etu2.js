@@ -27,18 +27,13 @@ function calculerScore(pNbPoint, PTotalPoint) {
 
 function creerHTMLMesReponses() {
 
-    let titre = document.createElement("h2");
-    titre.textContent = "Mes réponses";
-    titre.classList.add("text-center", "mb-4");
-    let textFinal = document.createElement("p");
-    textFinal.className = "d-none";
     let offCanvas = document.getElementById("pElementBodyOffCanva");
 
+    let pNbPoint = 0;
+
+    let PTotalPoint = 0;
+
     questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
-
-        let pNbPoint = 0;
-
-        let PTotalPoint = 0;
 
         let div = document.createElement("div");
         div.classList.add("card", "mb-4", "border-0");
@@ -52,94 +47,130 @@ function creerHTMLMesReponses() {
         let pQuestion = document.createElement("p");
         pQuestion.textContent = questionsPourQuestionnaire.titre;
 
+        let indice;
+
+        let reponse = [];
+
         let pReponse = document.createElement("p");
         let pSReponse = document.createElement("strong");
-        pSReponse.textContent = `Votre réponse: ${questionsPourQuestionnaire.mesReponses}`;
+        pSReponse.textContent = `Votre réponse: `;
 
+
+        for (let i = 0; i < DATA_QUIZ.banque_questions.length; i++) {
+            if (DATA_QUIZ.banque_questions[i].titre == questionsPourQuestionnaire.titre) {
+                indice = i;
+            }
+        }
+        if (questionsPourQuestionnaire.repUtilisateur.length > 1){
+            pSReponse.textContent = `Vos réponses: `;
+            for (let i = 0; i < questionsPourQuestionnaire.repUtilisateur.length; i++) {
+                reponse[i] = DATA_QUIZ.banque_questions[indice].choixReponses[questionsPourQuestionnaire.repUtilisateur[i]];
+                if (i < questionsPourQuestionnaire.repUtilisateur.length - 1) {
+                    pSReponse.textContent += `${reponse[i]}, `;
+                } else {
+                    pSReponse.textContent += `${reponse[i]}`;
+                }
+            }
+        }
+        else{
+            reponse = DATA_QUIZ.banque_questions[indice].choixReponses[questionsPourQuestionnaire.repUtilisateur];
+            pSReponse.textContent += `${reponse}`;
+        }
+        
         div.appendChild(divHeader);
-        divHeader.appendChild(entete);
         entete.appendChild(strong);
+        divHeader.appendChild(entete);
         divHeader.appendChild(pQuestion);
         divHeader.appendChild(pReponse);
         pReponse.appendChild(pSReponse);
         let pPointage = document.createElement("p");
         let pBoiteTexte = document.createElement("p");
-        if (questionsPourQuestionnaire.bonneReponse) {
+        if (questionsPourQuestionnaire.maReponse) {
 
             let divBody = document.createElement("div");
             pPointage.textContent = "1 / 1";
+            let divc = document.createElement("div");
+            divc.className = "d-flex align-items-start";
+            let divs = document.createElement("div");
+            divs.className = "alert alert-success";
+            let icon = document.createElement("i");
+            icon.className = "bi bi-check-circle-fill text-success me-3";
+            icon.style.fontSize = "2rem";
             pPointage.className = "text-success";
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionPositive;
             pBoiteTexte.className = "text-success";
             pNbPoint += 1;
             PTotalPoint += 1;
-            div.appendChild(divBody);
             divBody.appendChild(pPointage);
-            divBody.appendChild(pBoiteTexte);
-
+            divc.appendChild(icon);
+            divc.appendChild(divs);
+            divBody.appendChild(divc);
+            div.appendChild(divBody);
+            divs.appendChild(pBoiteTexte);
         } else {
             let divBody = document.createElement("div");
             pPointage.textContent = " 0 / 1";
-            pPointage.className = "text-error";
+            let divc = document.createElement("div");
+            divc.className = "d-flex align-items-start";
+            let divs = document.createElement("div");
+            divs.className = "alert alert-danger";
+            let icon = document.createElement("i");
+            icon.className = "bi bi-x-circle-fill text-danger me-3";
+            icon.style.fontSize = "2rem";
+            pPointage.className = "text-danger";
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
-            pBoiteTexte.className = "text-red";
+            pBoiteTexte.className = "text-danger";
             PTotalPoint += 1;
-            div.appendChild(divBody);
             divBody.appendChild(pPointage);
-            divBody.appendChild(pBoiteTexte);
+            divc.appendChild(icon);
+            divc.appendChild(divs);
+            divBody.appendChild(divc);
+            div.appendChild(divBody);
+            divs.appendChild(pBoiteTexte);
         }
-
-        let divFooter = document.createElement("div");
-        let tScore = document.createElement("h2");
-        let tScoreStrong = document.createElement("strong");
-        tScoreStrong.textContent = "Votre score";
-        let pScore = document.createElement("p");
-        pScore.textContent = "Voici le total de vos points :";
-        let pTScore = document.createElement("h3");
-        let PTSScore = document.createElement("strong");
-        PTSScore.textContent = "Bonne(s) réponse(s) :";
-        let Score = document.createElement("p");
-        Score.textContent = `${pNbPoint} / ${PTotalPoint}`;
-        let tPourcentage = document.createElement("h3");
-        let tSPourcentage = document.createElement("strong");
-        tSPourcentage.textContent = "Score :";
-        let pPourcentage = document.createElement("p");
-        pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
-        if (pNbPoint / PTotalPoint >= 0.5) {
-            Score.className = "text-success";
-            pPourcentage.className = "bg-success";
-        }
-        else {
-            Score.className = "text-warning";
-            pPourcentage.className = "bg-warning";
-        }
-
-        textFinal.textContent += `${strong.textContent} ${pQuestion.textContent} ${pSReponse.textContent} ${pPointage.textContent} ${pBoiteTexte.textContent} ${tScoreStrong.textContent} ${pScore.textContent} ${PTSScore.textContent} ${Score.textContent} ${tSPourcentage.textContent} ${pPourcentage.textContent}`;
-
-        div.appendChild(divFooter);
-        divFooter.appendChild(tScore);
-        tScore.appendChild(tScoreStrong);
-        divFooter.appendChild(pScore);
-        divFooter.appendChild(pTScore);
-        pTScore.appendChild(PTSScore);
-        divFooter.appendChild(Score);
-        divFooter.appendChild(tPourcentage);
-        tPourcentage.appendChild(tSPourcentage);
-        divFooter.appendChild(pPourcentage);
         offCanvas.appendChild(div);
     });
 
+    let divFooter = document.createElement("div");
+
+    let tScore = document.createElement("h2");
+    tScore.textContent = "Votre score";
+    let pScore = document.createElement("p");
+    pScore.textContent = "Voici le total de vos points :";
+    
+    let pTScore = document.createElement("h3");
+    pTScore.textContent = "Bonne(s) réponse(s):";
+    
+    let Score = document.createElement("p");
+    Score.textContent = `${pNbPoint} / ${PTotalPoint}`;
+    
+    let tPourcentage = document.createElement("h3");
+    tPourcentage.textContent = "Score :";
+    
+    let pPourcentage = document.createElement("p");
+    pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
+        
+    if (pNbPoint / PTotalPoint >= 0.5) {
+        Score.className = "text-success";
+        pPourcentage.className = "bg-danger text-white py-4 fs-1 d-flex justify-content-center align-items-center";
+    } else {
+        Score.className = "text-danger";
+        pPourcentage.className = "bg-danger text-white py-4 fs-1 d-flex justify-content-center align-items-center";
+    }
+    
+    divFooter.appendChild(tScore);
+    divFooter.appendChild(pScore);
+    divFooter.appendChild(pTScore);
+    divFooter.appendChild(Score);
+    divFooter.appendChild(tPourcentage);
+    divFooter.appendChild(pPourcentage);
+    offCanvas.appendChild(divFooter);
 }
 
 export function remplirOffCanvas() {
     let offCanvas = document.getElementById("pElementBodyOffCanva");
     let bdiv = document.createElement("div");
     bdiv.className = "container";
-
-    let titre = document.createElement("h2");
-    titre.textContent = "Mes réponses";
-
-    bdiv.prepend(titre);
     offCanvas.appendChild(bdiv);
     creerHTMLMesReponses();
     creerFormulaireEnvoieReponses();
@@ -152,10 +183,16 @@ function creerFormulaireEnvoieReponses() {
 
         if (validerFormulaireEnvoiReponses(nom, courriel)) {
 
-            let mailtoLink = `mailto:${courriel}?subject=Quiz%20web2&body=${textFinal.textContent}`;
+            let mailtoLink = `mailto:${courriel.value}?subject=Quiz%20web2&body=${document.getElementById("pElementBodyOffCanva").textContent}`;
 
             window.location.href = mailtoLink;
         }
+    });
+    nom.addEventListener("blur", function () {
+        validerFormulaireEnvoiReponses(nom, courriel);
+    });
+    courriel.addEventListener("blur", function () {
+        validerFormulaireEnvoiReponses(nom, courriel);
     });
 }
 
@@ -164,31 +201,57 @@ function validerFormulaireEnvoiReponses(nom, courriel) {
     let nomValid = false;
 
     if (nom.value.trim() != "") {
-        if (nom.length >= 2) {
-            if (nom[0] != nom[0].toUpperCase()) {
+        if (nom.value.length >= 2) {
+            if (nom.value[0] == nom.value[0].toUpperCase()) {
                 nom.classList.add("is-valid");
+                nom.classList.remove("is-invalid");
                 nomValid = true;
-
             }
             else {
                 nom.classList.add("is-invalid");
+                nom.classList.remove("is-valid");
             }
         }
         else {
             nom.classList.add("is-invalid");
+            nom.classList.remove("is-valid"); 
         }
-
     }
     else {
         nom.classList.add("is-invalid");
+        nom.classList.remove("is-valid");
     }
 
-    let regexCourriel = /^.+@.+/.test(courriel.value);
-    if (regexCourriel) {
+    let courielvalid= false;
+    let regexCourriel = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (regexCourriel.test(courriel.value)) {
         courriel.classList.add("is-valid");
-    }
-    else {
+        courriel.classList.remove("is-invalid");
+        courielvalid = true;
+    } else {
         courriel.classList.add("is-invalid");
+        courriel.classList.remove("is-valid");
     }
-    return nomValid && regexCourriel;
+    console.log(nomValid && courielvalid);
+    return nomValid && courielvalid;
 }
+
+export function telechargerReponses() {
+
+    let offCanvasHTML = document.getElementById("pElementBodyOffCanva").outerHTML;
+
+    var fichier = new File(["\ufeff"+offCanvasHTML], 'MesReponses.html', {type: "text/plain:charset=UTF-8"});
+
+    var url = window.URL.createObjectURL(fichier);
+    var a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = 'MesReponses.html';
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(url);
+}
+
