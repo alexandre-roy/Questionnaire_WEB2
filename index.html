@@ -297,7 +297,6 @@
         <div class="d-flex justify-content-center">
           <div class="border-top border-2 border-dark mp-2 mb-4 w-75"></div>
         </div>
-        <div>
           <form method="get">
             <h4>Envoyer mes resultats</h4>
             <div class="my-2" id="divNom">
@@ -324,6 +323,39 @@
       </div>
     </div>
   </div>
+  <section class="container">
+    <div class="d-flex justify-content-center mb-4 d-none" id="questionnaire">
+      <div class="card px-4 py-3 bg-light bg-opacity-25 w-75 flexy">
+        <form method="get">
+          <h2 class="text-center fs-3" id="noquestion">
+            Numero de la question
+          </h2>
+          <p id="titrequestion" class="fs-5 my-3"></p>
+          <div id="choixreponses"></div>
+          <div class="row">
+            <div class="col-xl-9 col-md-8 col-sm-7 col-xs-7 col-4"></div>
+            <p class="visually-hidden" id="descriptionquestionsuivante">
+              Bouton pour afficher la question suivante ou terminer le test
+            </p>
+            <button type="button" id="boutonAssocie" data-bs-toggle="popover" data-bs-trigger="click"
+              data-bs-placement="top" class="btn btn-primary text-info py-1 col-xl-3 col-md-4 col-sm-5 col-xs-5 col-8"
+              aria-labelledby="descriptionquestionsuivante">
+              QUESTION SUIVANTE
+            </button>
+            <h3 class="d-none" id="entetePopover">Fin du questionnaire</h3>
+            <div id="contenuPopover" class="d-none">
+              <p>
+                Pour consulter vos réponses, cliquez «
+                <a href="#top" class="link-underline link-underline-opacity-0">MES RÉPONSES</a>
+                » dans l'entête de cette page
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  </main>
 
   <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 10">
     <div id="toast" class="toast bg-body" role="alert" aria-live="assertive" aria-atomic="true">
