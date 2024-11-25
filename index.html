@@ -259,7 +259,7 @@
         <button onclick="telechargerReponses()" class="btn btn-primary mt-3 mb-5">Télécharger mes résultats</button>
       </div>
       <div>
-        <form method="get">
+        <form method="get" novalidate>
           <h4>Envoyer mes resultats</h4>
           <div class="my-2" id="divNom">
             <label for="nom">Nom: <span class="text-danger">*</span></label>
@@ -270,7 +270,7 @@
           </div>
           <div class="my-2">
             <label for="courriel">Courriel: <span class="text-danger">*</span></label>
-            <input type="string" name="courriel" id="courriel" required class="form-control" />
+            <input type="email" name="courriel" id="courriel" required class="form-control" />
             <div class="invalid-feedback">
               <i class="bi bi-x-circle-fill text-danger"></i> Entrez une adresse email valide.
             </div>
