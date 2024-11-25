@@ -30,8 +30,13 @@
 * Fonction checkReponse
 * Fonction afficherRetroaction
 ## Étudiant 2 - Emmanuel Xudous
-* Tâche ou fonction 1
-* Tâche ou fonction 2
+* Section OffCanvas
+* Fonction creerPoppover
+* Fonction calculerScore
+* Fonction creerHTMLMesReponses
+* Fonction remplirOffCanvas
+* Fonction creerFormulaireEnvoieReponses
+* Fonction telechargerReponses
 * ...
 # POLICES 
 * Fjalla One (titres) vs Inter (texte courant)

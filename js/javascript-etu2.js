@@ -5,6 +5,11 @@
 
 import { questionsPourQuestionnaire } from "./javascript-etu1.js";
 
+/**
+ * Permet de créer un popover sur le bouton terminer le questonnaire.
+ *
+ * @author emmanuel-xudous
+ */
 export function creerPoppover() {
     const titrePoppover = document.getElementById("entetePopover").innerHTML;
 
@@ -21,17 +26,30 @@ export function creerPoppover() {
     popoverFin.show();
 }
 
-function calculerScore(pNbPoint, PTotalPoint) {
-    return Math.round((pNbPoint / PTotalPoint) * 100);
+
+/**
+ * Permet de calculer le score de l'utilisateur pour le questionnaire.
+ *
+ * @param {number} pNBPoints - Nombre de point accumulé par l'utilisateur.
+ * @param {number} pTotalPoint - Nombre total de point possible.
+ * @author emmanuel-xudous
+ */
+function calculerScore(pNbPoint, pTotalPoint) {
+    return Math.round((pNbPoint / pTotalPoint) * 100);
 }
 
+/**
+ * Permet de cr/er le HTML pour les réponses de l'utilisateur dans le offCanvas.
+ *
+ * @author emmanuel-xudous
+ */
 function creerHTMLMesReponses() {
 
     let offCanvas = document.getElementById("pElementBodyOffCanva");
 
     let pNbPoint = 0;
 
-    let PTotalPoint = 0;
+    let pTotalPoint = 0;
 
     questionsPourQuestionnaire.forEach((questionsPourQuestionnaire, index) => {
 
@@ -100,7 +118,7 @@ function creerHTMLMesReponses() {
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionPositive;
             pBoiteTexte.className = "text-success";
             pNbPoint += 1;
-            PTotalPoint += 1;
+            pTotalPoint += 1;
             divBody.appendChild(pPointage);
             divc.appendChild(icon);
             divc.appendChild(divs);
@@ -120,7 +138,7 @@ function creerHTMLMesReponses() {
             pPointage.className = "text-danger";
             pBoiteTexte.textContent = questionsPourQuestionnaire.retroactionNegative;
             pBoiteTexte.className = "text-danger";
-            PTotalPoint += 1;
+            pTotalPoint += 1;
             divBody.appendChild(pPointage);
             divc.appendChild(icon);
             divc.appendChild(divs);
@@ -142,15 +160,15 @@ function creerHTMLMesReponses() {
     pTScore.textContent = "Bonne(s) réponse(s):";
     
     let Score = document.createElement("p");
-    Score.textContent = `${pNbPoint} / ${PTotalPoint}`;
+    Score.textContent = `${pNbPoint} / ${pTotalPoint}`;
     
     let tPourcentage = document.createElement("h3");
     tPourcentage.textContent = "Score :";
     
     let pPourcentage = document.createElement("p");
-    pPourcentage.textContent = `${calculerScore(pNbPoint, PTotalPoint)}%`;
+    pPourcentage.textContent = `${calculerScore(pNbPoint, pTotalPoint)}%`;
         
-    if (pNbPoint / PTotalPoint >= 0.5) {
+    if (pNbPoint / pTotalPoint >= 0.5) {
         Score.className = "text-success";
         pPourcentage.className = "bg-danger text-white py-4 fs-1 d-flex justify-content-center align-items-center";
     } else {
@@ -167,6 +185,12 @@ function creerHTMLMesReponses() {
     offCanvas.appendChild(divFooter);
 }
 
+/**
+ * Permet de remplir le offCanvas avec les réponses de l'utilisateur.
+ *
+ * @author emmanuel-xudous
+ */
+
 export function remplirOffCanvas() {
     let offCanvas = document.getElementById("pElementBodyOffCanva");
     let bdiv = document.createElement("div");
@@ -176,6 +200,11 @@ export function remplirOffCanvas() {
     creerFormulaireEnvoieReponses();
 }
 
+/**
+ * Permet de créer le formulaire pour envoyer les réponses de l'utilisateur.
+ *
+ * @author emmanuel-xudous
+ */
 function creerFormulaireEnvoieReponses() {
 
     document.getElementById("boutonEnvoyer").addEventListener("click", function (event) {
@@ -195,6 +224,14 @@ function creerFormulaireEnvoieReponses() {
         validerFormulaireEnvoiReponses(nom, courriel);
     });
 }
+
+/**
+ * Valide le formulaire pour envoyer les réponses de l'utilisateur.
+ *
+ * @param {string} nom - nom de l'utilisateur.
+ * @param {string} courriel - courriel de l'utilisateur.
+ * @author emmanuel-xudous
+ */
 
 function validerFormulaireEnvoiReponses(nom, courriel) {
 
@@ -236,6 +273,11 @@ function validerFormulaireEnvoiReponses(nom, courriel) {
     return nomValid && courielvalid;
 }
 
+/**
+ * Telecharge les réponses de l'utilisateur dans une nouvelle page HTML.
+ *
+ * @author emmanuel-xudous
+ */
 export function telechargerReponses() {
 
     let offCanvasHTML = document.getElementById("pElementBodyOffCanva").outerHTML;
