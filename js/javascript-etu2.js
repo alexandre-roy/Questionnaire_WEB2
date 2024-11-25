@@ -71,7 +71,7 @@ function creerHTMLMesReponses() {
 
         let pReponse = document.createElement("p");
         let pSReponse = document.createElement("strong");
-        pSReponse.textContent = `Votre réponse: `;
+        pSReponse.textContent = "Votre réponse: ";
 
 
         for (let i = 0; i < DATA_QUIZ.banque_questions.length; i++) {
@@ -80,7 +80,7 @@ function creerHTMLMesReponses() {
             }
         }
         if (questionsPourQuestionnaire.repUtilisateur.length > 1){
-            pSReponse.textContent = `Vos réponses: `;
+            pSReponse.textContent = "Vos réponses: ";
             for (let i = 0; i < questionsPourQuestionnaire.repUtilisateur.length; i++) {
                 reponse[i] = DATA_QUIZ.banque_questions[indice].choixReponses[questionsPourQuestionnaire.repUtilisateur[i]];
                 if (i < questionsPourQuestionnaire.repUtilisateur.length - 1) {
@@ -275,13 +275,13 @@ export function telechargerReponses() {
 
     let offCanvasHTML = document.getElementById("pElementBodyOffCanva").outerHTML;
 
-    let fichier = new File(["\ufeff"+offCanvasHTML], 'MesReponses.html', {type: "text/plain:charset=UTF-8"});
+    let fichier = new File(["\ufeff"+offCanvasHTML], "MesReponses.html", {type: "text/plain:charset=UTF-8"});
 
     let url = window.URL.createObjectURL(fichier);
     let a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
-    a.download = 'MesReponses.html';
+    a.download = "MesReponses.html";
 
     document.body.appendChild(a);
     a.click();
