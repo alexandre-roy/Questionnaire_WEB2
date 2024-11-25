@@ -37,7 +37,6 @@
 * Fonction remplirOffCanvas
 * Fonction creerFormulaireEnvoieReponses
 * Fonction telechargerReponses
-* ...
 # POLICES 
 * Fjalla One (titres) vs Inter (texte courant)
 ## Titres : Fjalla One (https://fonts.google.com/specimen/Fjalla+One)

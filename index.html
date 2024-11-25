@@ -2,11 +2,11 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="favicon.ico" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <link rel="stylesheet" href="css/styles.css" >
+  <link rel="icon" href="favicon.ico" >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" >
   <title>WEB2 | Questionnaire</title>
 </head>
 
@@ -19,7 +19,7 @@
     <nav class="bg-light">
       <div class="container d-flex justify-content-between">
         <a class="navbar-brand" href="#">
-          <img src="images/Logo-05B-dev-web-client.png" alt="Logo du site" width="125" />
+          <img src="images/Logo-05B-dev-web-client.png" alt="Logo du site" width="125" >
         </a>
         <p class="visually-hidden" id="descriptionoffcanvas">
           Bouton pour consulter ses réponses
@@ -37,7 +37,7 @@
       <p class="position-absolute bottom-0 bg-body bg-opacity-75 p-2 m-5 rounded border border-4 border-dark fs-1">
         <strong>05B | DÉVELOPPEMENT WEB COTÉ CLIENT</strong>
       </p>
-      <img src="images/hero.jpg" alt="hero" class="w-100" />
+      <img src="images/hero.jpg" alt="hero" class="w-100" >
     </div>
 
     <h1 class="container my-4"><strong>Questionnaire formatif</strong></h1>
@@ -65,26 +65,26 @@
                   <div class="mb-3 col pe-4">
                     <label for="txtdescription" class="fs-4 my-2"><strong>Description</strong></label>
                     <input class="form-control" type="text" name="txtdescription" id="txtdescription"
-                      placeholder="Veuillez saisir un mot-clé" />
+                      placeholder="Veuillez saisir un mot-clé" >
                   </div>
 
                   <div class="col row">
                     <p class="fs-4 my-2"><strong>Catégories</strong></p>
                     <div class="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="chkhtml" id="chkhtml" />
+                        <input class="form-check-input" type="checkbox" value="chkhtml" id="chkhtml" >
                         <label class="form-check-label" for="chkhtml">
                           HTML
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="chkcss" id="chkcss" />
+                        <input class="form-check-input" type="checkbox" value="chkcss" id="chkcss" >
                         <label class="form-check-label" for="chkcss">
                           CSS
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="chkbootstrap" id="chkbootstrap" />
+                        <input class="form-check-input" type="checkbox" value="chkbootstrap" id="chkbootstrap" >
                         <label class="form-check-label" for="chkbootstrap">
                           Bootstrap
                         </label>
@@ -92,20 +92,20 @@
                     </div>
                     <div class="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="chkjavascript" id="chkjavascript" />
+                        <input class="form-check-input" type="checkbox" value="chkjavascript" id="chkjavascript" >
                         <label class="form-check-label" for="chkjavascript">
                           Javascript
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="chkformulaires" id="chkformulaires" />
+                        <input class="form-check-input" type="checkbox" value="chkformulaires" id="chkformulaires" >
                         <label class="form-check-label" for="chkformulaires">
                           Formulaires
                         </label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="chkaccessibilite"
-                          id="chkaccessibilite" />
+                          id="chkaccessibilite" >
                         <label class="form-check-label" for="chkaccessibilite">
                           Accessibilité Web
                         </label>
@@ -177,7 +177,7 @@
           <div>
             <label for="nbquestions" class="mb-2"><strong>Nombre de questions:</strong></label>
             <input class="form-control w-25 mb-4 border border-2 border-dark" type="number" name="nbquestions"
-              id="nbquestions" min="1" max="5" value="1" />
+              id="nbquestions" min="1" max="5" value="1" >
           </div>
           <div class="mb-4">
             <p>
@@ -264,7 +264,8 @@
     <div class="offcanvas-body">
       <div id="pElementBodyOffCanva"></div>
       <div class="d-flex justify-content-center align-items-center text-center">
-        <button onclick="telechargerReponses()" class="btn btn-primary mt-4 mb-0">Télécharger mes résultats</button>
+        <p class="visually-hidden" id="descriptiontelecharger">Bouton pour télécharger les résultats.</p>
+        <button onclick="telechargerReponses()" class="btn btn-primary mt-4 mb-0" aria-labelledby="descriptiontelecharger">Télécharger mes résultats</button>
       </div>
       <div class="d-flex justify-content-center">
         <div class="border-top border-2 border-dark m-4 w-75"></div>
@@ -273,14 +274,15 @@
         <h4>Envoyer mes resultats</h4>
         <div class="my-2" id="divNom">
           <label for="nom">Nom:</label>
-          <input type="text" name="nom" id="nom" required class="form-control" autocomplete="off" />
+          <input type="text" name="nom" id="nom" required class="form-control" autocomplete="off" >
         </div>
         <div class="my-2">
           <label for="courriel">Courriel:</label>
           <input type="text" name="courriel" id="courriel" required class="form-control" autocomplete="off">
         </div>
         <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary mt-3 mb-5" id="boutonEnvoyer">
+          <p class="visually-hidden" id="descriptionenvoyer">Bouton pour envoyer les résultats.</p>
+          <button type="submit" class="btn btn-primary mt-3 mb-5" id="boutonEnvoyer" aria-labelledby="descriptionenvoyer">
             Envoyer
           </button>
         </div>
@@ -290,7 +292,7 @@
   <div class="position-fixed bottom-0 start-50 translate-middle-x mb-3" style="z-index: 10">
     <div id="toast" class="toast bg-body" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        <img src="images/Logo-05B-dev-web-client.png" alt="logo" class="w-25 rounded me-3" />
+        <img src="images/Logo-05B-dev-web-client.png" alt="logo" class="w-25 rounded me-3" >
         <strong id="toast-title" class="fs-3 me-auto"></strong>
         <button type="button" class="btn-close me-1" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
